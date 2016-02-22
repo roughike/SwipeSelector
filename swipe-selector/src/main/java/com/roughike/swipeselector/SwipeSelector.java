@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.iroughapps.swipeselector.R;
 
 /*
  * SwipeSelector library for Android
