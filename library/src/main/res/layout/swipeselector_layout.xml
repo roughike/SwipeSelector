@@ -8,17 +8,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="28dp"
-        android:layout_alignBottom="@+id/swipeselector_layout_swipeableContent"
         android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
         android:id="@+id/swipeselector_layout_circleContainer"
         android:layout_marginRight="8dp"
         android:layout_marginEnd="8dp" />
 
-    <com.iroughapps.swipeselector.WrappingPager
-        android:id="@+id/swipeselector_layout_swipeableContent"
+    <com.roughike.swipeselector.WrappingPager
+        android:id="@+id/swipeselector_layout_swipePager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp" />
 
     <ImageView
         android:id="@+id/swipeselector_layout_leftButton"

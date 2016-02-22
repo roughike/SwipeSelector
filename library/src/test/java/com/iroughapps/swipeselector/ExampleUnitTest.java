@@ -1,4 +1,4 @@
-package com.iroughapps.swipeselector;
+package com.roughike.swipeselector;
 
 import org.junit.Test;
 

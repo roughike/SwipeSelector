@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.iroughapps.swipeselector.R;
+
 /*
  * SwipeSelector library for Android
  * Copyright (c) 2016 Iiro Krankka (http://github.com/roughike).

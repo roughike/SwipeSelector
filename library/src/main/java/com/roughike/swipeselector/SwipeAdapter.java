@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.iroughapps.swipeselector.R;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
