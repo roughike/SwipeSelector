@@ -1,7 +1,8 @@
 package com.roughike.swipeselector;
 
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /*
  * SwipeSelector library for Android
@@ -19,18 +20,13 @@ import android.graphics.drawable.shapes.OvalShape;
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-class Indicator {
-    /**
-     * Creates a new {@link ShapeDrawable}, in this case a circle.
-     * @param size the width and height for the circle
-     * @param color the color resource for the circle
-     * @return a nice and adorable tiny little circle indicator.
-     */
-    protected static ShapeDrawable newOne(int size, int color) {
-        ShapeDrawable indicator = new ShapeDrawable(new OvalShape());
-        indicator.setIntrinsicWidth(size);
-        indicator.setIntrinsicHeight(size);
-        indicator.getPaint().setColor(color);
-        return indicator;
+
+/**
+ * To work on unit tests, switch the Test Artifact in the Build Variants view.
+ */
+public class ExampleUnitTest {
+    @Test
+    public void addition_isCorrect() throws Exception {
+        assertEquals(4, 2 + 2);
     }
 }

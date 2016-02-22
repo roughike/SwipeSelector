@@ -23,7 +23,7 @@ import android.util.DisplayMetrics;
 class PixelUtils {
     /**
      * Converts dps to pixels nicely.
-     * @param context the {@link Context} for getting the resources
+     * @param context the Context for getting the resources
      * @param dp dimension in dps
      * @return dimension in pixels
      */
