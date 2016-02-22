@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SwipeSelector">
+        <attr name="swipe_indicatorSize" format="dimension" />
+        <attr name="swipe_indicatorMargin" format="dimension" />
+        <attr name="swipe_indicatorActiveColor" format="color" />
+        <attr name="swipe_indicatorInActiveColor" format="color" />
+    </declare-styleable>
+</resources>
