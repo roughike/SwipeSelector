@@ -11,8 +11,9 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:id="@+id/swipeselector_layout_circleContainer"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp" />
+        android:paddingRight="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="16dp"/>
 
     <com.roughike.swipeselector.WrappingPager
         android:id="@+id/swipeselector_layout_swipePager"
