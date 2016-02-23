@@ -2,7 +2,7 @@
 A nicer-looking and more intuitive alternative for radio buttons and dropdowns for Android.
 
 # Demo
-<img src="https://raw.githubusercontent.com/roughike/SwipeSelector/master/swipeselector.1.gif" width="278" height="492" />
+<img src="https://raw.githubusercontent.com/roughike/SwipeSelector/master/2016_02_23_11_01_08.gif" width="278" height="492" />
 
 
 ## What and why?
