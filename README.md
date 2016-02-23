@@ -94,6 +94,11 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
 * **swipe_indicatorMargin** how far the indicators are from each other.
 * **swipe_indicatorInActiveColor** the color for normal unselected indicators.
 * **swipe_indicatorActiveColor** the color for selected indicator.
+* 
+
+## Apps using SwipeSelector
+
+Contact me at iiro.krankka@gmail.com to get a shoutout!
 
 ## minSDK Version
 
@@ -102,10 +107,6 @@ The lowest supported SDK version is currently 14.
 ## Contributions
 
 Feel free to create issues / pull requests.
-
-## Apps using SwipeSelector
-
-Contact me at iiro.krankka@gmail.com to get a shoutout!
 
 ## Known issues
 
