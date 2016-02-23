@@ -1,10 +1,9 @@
 # SwipeSelector
 A nicer-looking and more intuitive alternative for radio buttons and dropdowns for Android.
 
-# Video demo
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=cQhnV8QH76s
-" target="_blank"><img src="http://img.youtube.com/vi/cQhnV8QH76s/0.jpg" 
-alt="Video demo" /></a>
+# Demo
+<img src="https://raw.githubusercontent.com/roughike/SwipeSelector/master/swipeselector.1.gif" width="278" height="492" />
+
 
 ## What and why?
 
