@@ -49,7 +49,8 @@ The usage is really simple.
 ```java
 SwipeSelector swipeSelector = (SwipeSelector) findViewById(R.id.swipeSelector);
 swipeSelector.setItems(
-  // The first argument is the value for that item, and should in most cases be unique.
+  // The first argument is the value for that item, and should in most cases be unique for the
+  // current SwipeSelector, just as you would assign values to radio buttons.
   // You can use the value later on to check what the selected item was.
   // The value can be any Object, here we're using ints.
   new SwipeItem(0, "Slide one", "Description for slide one."),
