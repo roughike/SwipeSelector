@@ -94,7 +94,7 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
 * **swipe_indicatorMargin** how far the indicators are from each other.
 * **swipe_indicatorInActiveColor** the color for normal unselected indicators.
 * **swipe_indicatorActiveColor** the color for selected indicator.
-* 
+
 
 ## Apps using SwipeSelector
 
