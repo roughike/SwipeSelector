@@ -44,7 +44,7 @@ The usage is really simple.
     android:layout_height="wrap_content" />
 ```
 
-**Then get a hold of it and do something with it:**
+**Then get a hold of it and give it a value, title and description:**
 
 ```java
 SwipeSelector swipeSelector = (SwipeSelector) findViewById(R.id.swipeSelector);
