@@ -1,7 +1,10 @@
 # SwipeSelector
 A nicer-looking and more intuitive alternative for radio buttons and dropdowns for Android.
 
-![SwipeSelector Screenshot](https://raw.githubusercontent.com/roughike/SwipeSelector/master/screenshot_one.png "SwipeSelector Screenshot")
+# Video demo
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=cQhnV8QH76s
+" target="_blank"><img src="http://img.youtube.com/vi/cQhnV8QH76s/0.jpg" 
+alt="Video demo" /></a>
 
 ## What and why?
 
@@ -13,7 +16,23 @@ Unfortunately, there were no ready-made solutions to achieve this, so I spent a 
 
 The usage is really simple.
 
-**First, add SwipeSelector to your layout file:**
+**First, add the dependency using Gradle:**
+
+```
+compile 'com.roughike:swipe-selector:1.0.0'
+```
+
+**Or maven:**
+```
+<dependency>
+  <groupId>com.roughike</groupId>
+  <artifactId>swipe-selector</artifactId>
+  <version>1.0.0</version>
+  <type>pom</type>
+</dependency>
+```
+
+**Then add SwipeSelector to your layout file:**
 
 ```xml
 <com.roughike.swipeselector.SwipeSelector
@@ -49,26 +68,21 @@ if (value == 0) {
 }
 ```
 
-## Customization
-
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
-
-## Installation
-
-Provide code examples and explanations of how to get the project.
-
-## API Reference
-
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
-
-## Tests
-
-Describe and show how to run the tests with code examples.
-
-## Contributors
-
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
-
 ## License
 
-A short snippet describing the license (MIT, Apache, etc.)
+```
+SwipeSelector library for Android
+Copyright (c) 2016 Iiro Krankka (http://github.com/roughike).
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
