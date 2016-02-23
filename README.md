@@ -15,17 +15,15 @@ Bored of dull looking radio buttons and dropdowns? Me too. I started looking for
 
 Unfortunately, there were no ready-made solutions to achieve this, so I spent a good day working on this very thing I call SwipeSelector.
 
-## How do I use it?
+## Installation
 
-The usage is really simple.
-
-**First, add the dependency using Gradle:**
+**Gradle:**
 
 ```
 compile 'com.roughike:swipe-selector:1.0.1'
 ```
 
-**Or maven:**
+**Maven:**
 ```
 <dependency>
   <groupId>com.roughike</groupId>
@@ -35,7 +33,11 @@ compile 'com.roughike:swipe-selector:1.0.1'
 </dependency>
 ```
 
-**Then add SwipeSelector to your layout file:**
+## How do I use it?
+
+The usage is really simple.
+
+**First add SwipeSelector to your layout file:**
 
 ```xml
 <com.roughike.swipeselector.SwipeSelector
