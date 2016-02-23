@@ -67,6 +67,8 @@ if (value == 0) {
 }
 ```
 
+For an example project using multiple SwipeSelectors, [refer to the sample app](https://github.com/roughike/SwipeSelector/tree/master/sample/src/main).
+
 ## Customization
 
 ```xml
