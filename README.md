@@ -1,3 +1,5 @@
+##IMPORTANT: don't use in production just yet! There's seems to be couple flaws which are being fixed at the moment.
+
 # SwipeSelector
 A nicer-looking and more intuitive alternative for radio buttons and dropdowns for Android.
 
