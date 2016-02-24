@@ -34,8 +34,7 @@
         android:paddingRight="8dp"
         android:paddingEnd="8dp"
         android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:src="@drawable/ic_action_navigation_chevron_left" />
+        android:paddingBottom="16dp" />
 
     <ImageView
         android:id="@+id/swipeselector_layout_rightButton"
@@ -50,7 +49,6 @@
         android:paddingRight="8dp"
         android:paddingEnd="8dp"
         android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:src="@drawable/ic_action_navigation_chevron_right" />
+        android:paddingBottom="16dp" />
 
 </RelativeLayout>

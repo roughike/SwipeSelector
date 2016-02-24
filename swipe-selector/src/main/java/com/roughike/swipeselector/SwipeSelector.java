@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 
 /*
@@ -39,6 +40,9 @@ public class SwipeSelector extends FrameLayout {
     private int mIndicatorMargin;
     private int mIndicatorInActiveColor;
     private int mIndicatorActiveColor;
+
+    private int mLeftButtonResource;
+    private int mRightButtonResource;
 
     public SwipeSelector(Context context) {
         super(context);
@@ -74,6 +78,11 @@ public class SwipeSelector extends FrameLayout {
                     ContextCompat.getColor(context, R.color.swipeselector_color_indicator_inactive));
             mIndicatorActiveColor = ta.getColor(R.styleable.SwipeSelector_swipe_indicatorActiveColor,
                     ContextCompat.getColor(context, R.color.swipeselector_color_indicator_active));
+
+            mLeftButtonResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_leftButtonResource,
+                    R.drawable.ic_action_navigation_chevron_left);
+            mRightButtonResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_rightButtonResource,
+                    R.drawable.ic_action_navigation_chevron_right);
         } finally {
             ta.recycle();
         }
@@ -88,8 +97,10 @@ public class SwipeSelector extends FrameLayout {
                 mIndicatorMargin,
                 mIndicatorInActiveColor,
                 mIndicatorActiveColor,
-                findViewById(R.id.swipeselector_layout_leftButton),
-                findViewById(R.id.swipeselector_layout_rightButton));
+                mLeftButtonResource,
+                mRightButtonResource,
+                (ImageView) findViewById(R.id.swipeselector_layout_leftButton),
+                (ImageView) findViewById(R.id.swipeselector_layout_rightButton));
         mPager.setAdapter(mAdapter);
     }
 

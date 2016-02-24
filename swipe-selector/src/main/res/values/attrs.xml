@@ -5,5 +5,7 @@
         <attr name="swipe_indicatorMargin" format="dimension" />
         <attr name="swipe_indicatorActiveColor" format="color" />
         <attr name="swipe_indicatorInActiveColor" format="color" />
+        <attr name="swipe_leftButtonResource" format="reference" />
+        <attr name="swipe_rightButtonResource" format="reference" />
     </declare-styleable>
 </resources>

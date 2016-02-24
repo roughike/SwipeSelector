@@ -2,8 +2,10 @@ package com.roughike.swipeselector;
 
 import android.content.Context;
 import android.graphics.drawable.ShapeDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -40,18 +42,22 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     private final ShapeDrawable mInActiveCircleDrawable;
     private final ShapeDrawable mActiveCircleDrawable;
 
-    private final View mLeftButton;
-    private final View mRightButton;
+    private final ImageView mLeftButton;
+    private final ImageView mRightButton;
     private final ViewPager mViewPager;
+
+    private final int mSweetSixteen;
+    private final int mContentLeftPadding;
+    private final int mContentRightPadding;
 
     private ArrayList<SwipeItem> mItems;
     private int mCurrentPosition;
 
     private OnSwipeItemSelectedListener mOnItemSelectedListener;
 
-    protected SwipeAdapter(ViewPager viewPager, ViewGroup circleContainer, int circleSize,
-            int circleMargin, int inActiveCircleColor, int activeCircleColor,
-            View leftButton, View rightButton) {
+    protected SwipeAdapter(ViewPager viewPager, ViewGroup circleContainer, int circleSize, int circleMargin,
+            int inActiveCircleColor, int activeCircleColor, int leftButtonResource, int rightButtonResource,
+            ImageView leftButton, ImageView rightButton) {
         mContext = viewPager.getContext();
 
         mViewPager = viewPager;
@@ -67,7 +73,16 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                 circleSize, activeCircleColor);
 
         mLeftButton = leftButton;
+        mLeftButton.setImageResource(leftButtonResource);
+
         mRightButton = rightButton;
+        mRightButton.setImageResource(rightButtonResource);
+
+        mSweetSixteen = (int) PixelUtils.dpToPixel(mContext, 16);
+        mContentLeftPadding = ContextCompat.getDrawable(mContext, leftButtonResource)
+                .getIntrinsicWidth() + mSweetSixteen;
+        mContentRightPadding = ContextCompat.getDrawable(mContext, rightButtonResource)
+                .getIntrinsicWidth() + mSweetSixteen;
 
         mLeftButton.setOnClickListener(this);
         mRightButton.setOnClickListener(this);
@@ -147,13 +162,18 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        ViewGroup layout = (ViewGroup) View.inflate(mContext, R.layout.swipeselector_content_item, null);
+        LinearLayout layout = (LinearLayout) View.inflate(mContext, R.layout.swipeselector_content_item, null);
         TextView title = (TextView) layout.findViewById(R.id.swipeselector_content_title);
         TextView description = (TextView) layout.findViewById(R.id.swipeselector_content_description);
 
         SwipeItem slideItem = mItems.get(position);
         title.setText(slideItem.title);
         description.setText(slideItem.description);
+
+        layout.setPadding(mContentLeftPadding,
+                mSweetSixteen,
+                mContentRightPadding,
+                mSweetSixteen);
 
         container.addView(layout);
         return layout;
