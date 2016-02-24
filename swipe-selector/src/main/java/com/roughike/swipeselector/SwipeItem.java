@@ -28,7 +28,7 @@ public class SwipeItem {
      *
      * Otherwise, we'll just skip the loop as it's unnecessary.
      */
-    public static boolean checkForStringResources = false;
+    protected static boolean checkForStringResources = false;
 
     public Object value;
     public String title;
@@ -36,6 +36,9 @@ public class SwipeItem {
 
     protected int titleRes = -1;
     protected int descriptionRes = -1;
+
+    private SwipeItem() {
+    }
 
     /**
      * Constructor for creating a new item for the {@link SwipeSelector}.
