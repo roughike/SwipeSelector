@@ -17,12 +17,12 @@ Unfortunately, there were no ready-made solutions to achieve this, so I spent a 
 
 **Gradle:**
 
-```
+```groovy
 compile 'com.roughike:swipe-selector:1.0.1'
 ```
 
 **Maven:**
-```
+```xml
 <dependency>
   <groupId>com.roughike</groupId>
   <artifactId>swipe-selector</artifactId>
