@@ -5,7 +5,6 @@ import android.graphics.drawable.ShapeDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -32,13 +31,15 @@ import java.util.Arrays;
  *    limitations under the License.
  */
 class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPager.OnPageChangeListener {
-    private static final String TAG_VISIBLE = "TAG_VISIBLE";
+    private static final String TAG_CIRCLE = "TAG_CIRCLE";
+
+    // For the left and right buttons when they're not visible
     private static final String TAG_HIDDEN = "TAG_HIDDEN";
 
     private final Context mContext;
 
     private final LinearLayout.LayoutParams mCircleParams;
-    private final ViewGroup mCircleContainer;
+    private final ViewGroup mIndicatorContainer;
     private final ShapeDrawable mInActiveCircleDrawable;
     private final ShapeDrawable mActiveCircleDrawable;
 
@@ -55,22 +56,22 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     private OnSwipeItemSelectedListener mOnItemSelectedListener;
 
-    protected SwipeAdapter(ViewPager viewPager, ViewGroup circleContainer, int circleSize, int circleMargin,
-            int inActiveCircleColor, int activeCircleColor, int leftButtonResource, int rightButtonResource,
+    protected SwipeAdapter(ViewPager viewPager, ViewGroup indicatorContainer, int indicatorSize, int indicatorMargin,
+            int inActiveIndicatorColor, int activeIndicatorColor, int leftButtonResource, int rightButtonResource,
             ImageView leftButton, ImageView rightButton) {
         mContext = viewPager.getContext();
 
         mViewPager = viewPager;
         mViewPager.addOnPageChangeListener(this);
 
-        mCircleContainer = circleContainer;
-        mCircleParams = new LinearLayout.LayoutParams(circleSize, circleSize);
-        mCircleParams.leftMargin = circleMargin;
+        mIndicatorContainer = indicatorContainer;
+        mCircleParams = new LinearLayout.LayoutParams(indicatorSize, indicatorSize);
+        mCircleParams.leftMargin = indicatorMargin;
 
         mInActiveCircleDrawable = Indicator.newOne(
-                circleSize, inActiveCircleColor);
+                indicatorSize, inActiveIndicatorColor);
         mActiveCircleDrawable = Indicator.newOne(
-                circleSize, activeCircleColor);
+                indicatorSize, activeIndicatorColor);
 
         mLeftButton = leftButton;
         mLeftButton.setImageResource(leftButtonResource);
@@ -78,6 +79,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         mRightButton = rightButton;
         mRightButton.setImageResource(rightButtonResource);
 
+        // Calculate paddings for the content so the left and right buttons
+        // don't overlap.
         mSweetSixteen = (int) PixelUtils.dpToPixel(mContext, 16);
         mContentLeftPadding = ContextCompat.getDrawable(mContext, leftButtonResource)
                 .getIntrinsicWidth() + mSweetSixteen;
@@ -97,6 +100,9 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     }
 
     protected void setItems(SwipeItem... items) {
+        // If there are SwipeItems constructed using String resources
+        // instead of Strings, loop through all of them and get the
+        // Strings.
         if (SwipeItem.checkForStringResources) {
             ArrayList<SwipeItem> theRealOnes = new ArrayList<>();
 
@@ -121,7 +127,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         }
 
         mCurrentPosition = 0;
-        setActiveCircle(0);
+        setActiveIndicator(0);
         notifyDataSetChanged();
     }
 
@@ -129,29 +135,30 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         return mItems.get(mCurrentPosition);
     }
 
-    private void setActiveCircle(int position) {
-        if (mCircleContainer.findViewWithTag(TAG_VISIBLE) == null) {
+    private void setActiveIndicator(int position) {
+        if (mIndicatorContainer.findViewWithTag(TAG_CIRCLE) == null) {
+            // No indicators yet, let's make some. Only run once per configuration.
             for (int i = 0; i < getCount(); i++) {
-                ImageView circle = (ImageView) View.inflate(mContext, R.layout.swipeselector_circle_item, null);
+                ImageView indicator = (ImageView) View.inflate(mContext, R.layout.swipeselector_circle_item, null);
 
                 if (i == position) {
-                    circle.setImageDrawable(mActiveCircleDrawable);
+                    indicator.setImageDrawable(mActiveCircleDrawable);
                 } else {
-                    circle.setImageDrawable(mInActiveCircleDrawable);
+                    indicator.setImageDrawable(mInActiveCircleDrawable);
                 }
 
-                circle.setLayoutParams(mCircleParams);
-                circle.setTag(TAG_VISIBLE);
-                mCircleContainer.addView(circle);
+                indicator.setLayoutParams(mCircleParams);
+                indicator.setTag(TAG_CIRCLE);
+                mIndicatorContainer.addView(indicator);
             }
             return;
         }
 
-        ImageView previousActiveCircle = (ImageView) mCircleContainer.getChildAt(mCurrentPosition);
-        ImageView nextActiveCircle = (ImageView) mCircleContainer.getChildAt(position);
+        ImageView previousActiveIndicator = (ImageView) mIndicatorContainer.getChildAt(mCurrentPosition);
+        ImageView nextActiveIndicator = (ImageView) mIndicatorContainer.getChildAt(position);
 
-        previousActiveCircle.setImageDrawable(mInActiveCircleDrawable);
-        nextActiveCircle.setImageDrawable(mActiveCircleDrawable);
+        previousActiveIndicator.setImageDrawable(mInActiveCircleDrawable);
+        nextActiveIndicator.setImageDrawable(mActiveCircleDrawable);
 
         mCurrentPosition = position;
 
@@ -197,8 +204,13 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     @Override
     public void onPageSelected(int position) {
         if (getCount() == 0) return;
-        setActiveCircle(position);
+        setActiveIndicator(position);
 
+        handleLeftButtonVisibility(position);
+        handleRightButtonVisibility(position);
+    }
+
+    private void handleLeftButtonVisibility(int position) {
         if (position < 1) {
             mLeftButton.setTag(TAG_HIDDEN);
             mLeftButton.setClickable(false);
@@ -214,7 +226,9 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                     .setDuration(120)
                     .start();
         }
+    }
 
+    private void handleRightButtonVisibility(int position) {
         if (position == getCount() - 1) {
             mRightButton.setTag(TAG_HIDDEN);
             mRightButton.setClickable(false);
