@@ -17,12 +17,12 @@ Unfortunately, there were no ready-made solutions to achieve this, so I spent a 
 
 **Gradle:**
 
-```
+```groovy
 compile 'com.roughike:swipe-selector:1.0.1'
 ```
 
 **Maven:**
-```
+```xml
 <dependency>
   <groupId>com.roughike</groupId>
   <artifactId>swipe-selector</artifactId>
@@ -44,7 +44,7 @@ The usage is really simple.
     android:layout_height="wrap_content" />
 ```
 
-**Then get a hold of it and give it a value, title and description:**
+**Then get a hold of it and give it a set of SwipeItem objects with values, titles and descriptions:**
 
 ```java
 SwipeSelector swipeSelector = (SwipeSelector) findViewById(R.id.swipeSelector);
