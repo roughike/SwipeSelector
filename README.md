@@ -18,7 +18,7 @@ Unfortunately, there were no ready-made solutions to achieve this, so I spent a 
 **Gradle:**
 
 ```groovy
-compile 'com.roughike:swipe-selector:1.0.1'
+compile 'com.roughike:swipe-selector:1.0.2'
 ```
 
 **Maven:**
@@ -26,7 +26,7 @@ compile 'com.roughike:swipe-selector:1.0.1'
 <dependency>
   <groupId>com.roughike</groupId>
   <artifactId>swipe-selector</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <type>pom</type>
 </dependency>
 ```
@@ -85,15 +85,18 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
     app:swipe_indicatorSize="10dp"
     app:swipe_indicatorMargin="12dp"
     app:swipe_indicatorInActiveColor="#DDDDDD"
-    app:swipe_indicatorActiveColor="#FF00FF" />
+    app:swipe_indicatorActiveColor="#FF00FF"
+    app:swipe_leftButtonResource="@drawable/leftButtonResource"
+    app:swipe_rightButtonResource="@drawable/rightButtonResource" />
 ```
 
 **Attribute explanations**
 
-* **swipe_indicatorSize** the size for the circle indicators.
-* **swipe_indicatorMargin** how far the indicators are from each other.
-* **swipe_indicatorInActiveColor** the color for normal unselected indicators.
-* **swipe_indicatorActiveColor** the color for selected indicator.
+* **swipe_indicatorSize**: the size for the circle indicators.
+* **swipe_indicatorMargin**: how far the indicators are from each other.
+* **swipe_indicatorInActiveColor**: the color for normal unselected indicators.
+* **swipe_indicatorActiveColor**: the color for selected indicator.
+* **swipe_leftButtonResource** and **swipe_rightButtonResource**: custom Drawable resources for the left and right buttons. The margins for the content are calculated automatically, so even a bigger custom image won't overlap the content.
 
 
 ## Apps using SwipeSelector
