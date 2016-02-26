@@ -99,17 +99,23 @@ public class SwipeSelector extends FrameLayout {
         inflater.inflate(R.layout.swipeselector_layout, this);
 
         ViewPager pager = (ViewPager) findViewById(R.id.swipeselector_layout_swipePager);
-        mAdapter = new SwipeAdapter(pager,
-                (ViewGroup) findViewById(R.id.swipeselector_layout_circleContainer),
-                indicatorSize,
-                indicatorMargin,
-                indicatorInActiveColor,
-                indicatorActiveColor,
-                leftButtonResource,
-                rightButtonResource,
-                customTypeFace,
-                (ImageView) findViewById(R.id.swipeselector_layout_leftButton),
-                (ImageView) findViewById(R.id.swipeselector_layout_rightButton));
+        ViewGroup indicatorContainer = (ViewGroup) findViewById(R.id.swipeselector_layout_circleContainer);
+        ImageView leftButton = (ImageView) findViewById(R.id.swipeselector_layout_leftButton);
+        ImageView rightButton = (ImageView) findViewById(R.id.swipeselector_layout_rightButton);
+
+        mAdapter = new SwipeAdapter.Builder()
+                .viewPager(pager)
+                .indicatorContainer(indicatorContainer)
+                .indicatorSize(indicatorSize)
+                .indicatorMargin(indicatorMargin)
+                .inActiveIndicatorColor(indicatorInActiveColor)
+                .activeIndicatorColor(indicatorActiveColor)
+                .leftButtonResource(leftButtonResource)
+                .rightButtonResource(rightButtonResource)
+                .leftButton(leftButton)
+                .rightButton(rightButton)
+                .customTypeFace(customTypeFace)
+                .build();
         pager.setAdapter(mAdapter);
     }
 
