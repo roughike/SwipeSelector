@@ -88,12 +88,6 @@ public class SwipeSelector extends FrameLayout {
                     R.drawable.ic_action_navigation_chevron_right);
 
             String customFontPath = ta.getString(R.styleable.SwipeSelector_swipe_customFontPath);
-
-            if (customFontPath != null && !customFontPath.isEmpty()) {
-                customTypeFace = Typeface.createFromAsset(context.getAssets(),
-                        customFontPath);
-            }
-
             titleTextAppearance = ta.getResourceId(R.styleable.SwipeSelector_swipe_titleTextAppearance,
                     -1);
             descriptionTextAppearance = ta.getResourceId(R.styleable.SwipeSelector_swipe_descriptionTextAppearance,

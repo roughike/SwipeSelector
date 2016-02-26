@@ -40,31 +40,31 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     private final Context mContext;
 
-    private final LinearLayout.LayoutParams mCircleParams;
+    private final ViewPager mViewPager;
     private final ViewGroup mIndicatorContainer;
+
+    private final LinearLayout.LayoutParams mCircleParams;
     private final ShapeDrawable mInActiveCircleDrawable;
     private final ShapeDrawable mActiveCircleDrawable;
 
-    private final Typeface mCustomTypeFace;
+    private Typeface mCustomTypeFace;
     private final int mTitleTextAppearance;
     private final int mDescriptionTextAppearance;
 
     private final ImageView mLeftButton;
     private final ImageView mRightButton;
-    private final ViewPager mViewPager;
 
     private final int mSweetSixteen;
     private final int mContentLeftPadding;
     private final int mContentRightPadding;
 
+    private OnSwipeItemSelectedListener mOnItemSelectedListener;
     private ArrayList<SwipeItem> mItems;
     private int mCurrentPosition;
 
-    private OnSwipeItemSelectedListener mOnItemSelectedListener;
-
     private SwipeAdapter(ViewPager viewPager, ViewGroup indicatorContainer, int indicatorSize, int indicatorMargin,
                          int inActiveIndicatorColor, int activeIndicatorColor, int leftButtonResource, int rightButtonResource,
-                         ImageView leftButton, ImageView rightButton, Typeface customTypeFace, int titleTextAppearance, int descriptionTextAppearance) {
+                         ImageView leftButton, ImageView rightButton, String customFontPath, int titleTextAppearance, int descriptionTextAppearance) {
         mContext = viewPager.getContext();
 
         mViewPager = viewPager;
@@ -79,7 +79,11 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         mActiveCircleDrawable = Indicator.newOne(
                 indicatorSize, activeIndicatorColor);
 
-        mCustomTypeFace = customTypeFace;
+        if (customFontPath != null && !customFontPath.isEmpty()) {
+            mCustomTypeFace = Typeface.createFromAsset(mContext.getAssets(),
+                    customFontPath);
+        }
+
         mTitleTextAppearance = titleTextAppearance;
         mDescriptionTextAppearance = descriptionTextAppearance;
 
@@ -127,7 +131,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         private ImageView leftButton;
         private ImageView rightButton;
 
-        private Typeface customTypeFace;
+        private String customFontPath;
         private int titleTextAppearance;
         private int descriptionTextAppearance;
 
@@ -183,8 +187,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
             return this;
         }
 
-        protected Builder customTypeFace(Typeface customTypeFace) {
-            this.customTypeFace = customTypeFace;
+        protected Builder customTypeFace(String customFontPath) {
+            this.customFontPath = customFontPath;
             return this;
         }
 
@@ -193,7 +197,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
             return this;
         }
 
-        public Builder descriptionTextAppearance(int descriptionTextAppearance) {
+        protected Builder descriptionTextAppearance(int descriptionTextAppearance) {
             this.descriptionTextAppearance = descriptionTextAppearance;
             return this;
         }
@@ -209,12 +213,15 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                     rightButtonResource,
                     leftButton,
                     rightButton,
-                    customTypeFace,
+                    customFontPath,
                     titleTextAppearance,
                     descriptionTextAppearance);
         }
     }
 
+    /**
+     * Protected methods used by SwipeSelector
+     */
     protected void setOnItemSelectedListener(OnSwipeItemSelectedListener listener) {
         mOnItemSelectedListener = listener;
     }
@@ -255,38 +262,9 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         return mItems.get(mCurrentPosition);
     }
 
-    private void setActiveIndicator(int position) {
-        if (mIndicatorContainer.findViewWithTag(TAG_CIRCLE) == null) {
-            // No indicators yet, let's make some. Only run once per configuration.
-            for (int i = 0; i < getCount(); i++) {
-                ImageView indicator = (ImageView) View.inflate(mContext, R.layout.swipeselector_circle_item, null);
-
-                if (i == position) {
-                    indicator.setImageDrawable(mActiveCircleDrawable);
-                } else {
-                    indicator.setImageDrawable(mInActiveCircleDrawable);
-                }
-
-                indicator.setLayoutParams(mCircleParams);
-                indicator.setTag(TAG_CIRCLE);
-                mIndicatorContainer.addView(indicator);
-            }
-            return;
-        }
-
-        ImageView previousActiveIndicator = (ImageView) mIndicatorContainer.getChildAt(mCurrentPosition);
-        ImageView nextActiveIndicator = (ImageView) mIndicatorContainer.getChildAt(position);
-
-        previousActiveIndicator.setImageDrawable(mInActiveCircleDrawable);
-        nextActiveIndicator.setImageDrawable(mActiveCircleDrawable);
-
-        mCurrentPosition = position;
-
-        if (mOnItemSelectedListener != null) {
-            mOnItemSelectedListener.onItemSelected(getSelectedItem());
-        }
-    }
-
+    /**
+     * Override methods / listeners
+     */
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         LinearLayout layout = (LinearLayout) View.inflate(mContext, R.layout.swipeselector_content_item, null);
@@ -321,15 +299,6 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         return layout;
     }
 
-    @SuppressWarnings("deprecation")
-    private void setTextAppearanceCompat(TextView textView, int appearanceRes) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            textView.setTextAppearance(appearanceRes);
-        } else {
-            textView.setTextAppearance(textView.getContext(), appearanceRes);
-        }
-    }
-
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
@@ -352,6 +321,69 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         handleLeftButtonVisibility(position);
         handleRightButtonVisibility(position);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mLeftButton) && mCurrentPosition >= 1) {
+            mViewPager.setCurrentItem(mCurrentPosition - 1, true);
+        } else if (v.equals(mRightButton) && mCurrentPosition <= getCount() - 1) {
+            mViewPager.setCurrentItem(mCurrentPosition + 1, true);
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    /**
+     * Private convenience methods used by this class.
+     */
+    private void setActiveIndicator(int position) {
+        if (mIndicatorContainer.findViewWithTag(TAG_CIRCLE) == null) {
+            // No indicators yet, let's make some. Only run once per configuration.
+            for (int i = 0; i < getCount(); i++) {
+                ImageView indicator = (ImageView) View.inflate(mContext, R.layout.swipeselector_circle_item, null);
+
+                if (i == position) {
+                    indicator.setImageDrawable(mActiveCircleDrawable);
+                } else {
+                    indicator.setImageDrawable(mInActiveCircleDrawable);
+                }
+
+                indicator.setLayoutParams(mCircleParams);
+                indicator.setTag(TAG_CIRCLE);
+                mIndicatorContainer.addView(indicator);
+            }
+            return;
+        }
+
+        ImageView previousActiveIndicator = (ImageView) mIndicatorContainer.getChildAt(mCurrentPosition);
+        ImageView nextActiveIndicator = (ImageView) mIndicatorContainer.getChildAt(position);
+
+        previousActiveIndicator.setImageDrawable(mInActiveCircleDrawable);
+        nextActiveIndicator.setImageDrawable(mActiveCircleDrawable);
+
+        mCurrentPosition = position;
+
+        if (mOnItemSelectedListener != null) {
+            mOnItemSelectedListener.onItemSelected(getSelectedItem());
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void setTextAppearanceCompat(TextView textView, int appearanceRes) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            textView.setTextAppearance(appearanceRes);
+        } else {
+            textView.setTextAppearance(textView.getContext(), appearanceRes);
+        }
     }
 
     private void handleLeftButtonVisibility(int position) {
@@ -388,24 +420,5 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                     .setDuration(120)
                     .start();
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.equals(mLeftButton) && mCurrentPosition >= 1) {
-            mViewPager.setCurrentItem(mCurrentPosition - 1, true);
-        } else if (v.equals(mRightButton) && mCurrentPosition <= getCount() - 1) {
-            mViewPager.setCurrentItem(mCurrentPosition + 1, true);
-        }
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
     }
 }
