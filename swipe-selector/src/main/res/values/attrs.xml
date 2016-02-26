@@ -7,5 +7,6 @@
         <attr name="swipe_indicatorInActiveColor" format="color" />
         <attr name="swipe_leftButtonResource" format="reference" />
         <attr name="swipe_rightButtonResource" format="reference" />
+        <attr name="swipe_customFontPath" format="string" />
     </declare-styleable>
 </resources>

@@ -3,6 +3,7 @@ package com.roughike.swipeselector;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -44,6 +45,8 @@ public class SwipeSelector extends FrameLayout {
     private int mLeftButtonResource;
     private int mRightButtonResource;
 
+    private Typeface mCustomTypeFace;
+
     public SwipeSelector(Context context) {
         super(context);
         init(context, null, 0, 0);
@@ -83,6 +86,13 @@ public class SwipeSelector extends FrameLayout {
                     R.drawable.ic_action_navigation_chevron_left);
             mRightButtonResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_rightButtonResource,
                     R.drawable.ic_action_navigation_chevron_right);
+
+            String customFontPath = ta.getString(R.styleable.SwipeSelector_swipe_customFontPath);
+
+            if (customFontPath != null && !customFontPath.isEmpty()) {
+                mCustomTypeFace = Typeface.createFromAsset(context.getAssets(),
+                        customFontPath);
+            }
         } finally {
             ta.recycle();
         }
@@ -99,6 +109,7 @@ public class SwipeSelector extends FrameLayout {
                 mIndicatorActiveColor,
                 mLeftButtonResource,
                 mRightButtonResource,
+                mCustomTypeFace,
                 (ImageView) findViewById(R.id.swipeselector_layout_leftButton),
                 (ImageView) findViewById(R.id.swipeselector_layout_rightButton));
         mPager.setAdapter(mAdapter);

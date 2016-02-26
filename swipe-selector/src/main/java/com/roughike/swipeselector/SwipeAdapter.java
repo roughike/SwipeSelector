@@ -1,6 +1,7 @@
 package com.roughike.swipeselector;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
@@ -43,6 +44,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     private final ShapeDrawable mInActiveCircleDrawable;
     private final ShapeDrawable mActiveCircleDrawable;
 
+    private final Typeface mCustomTypeFace;
+
     private final ImageView mLeftButton;
     private final ImageView mRightButton;
     private final ViewPager mViewPager;
@@ -58,7 +61,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     protected SwipeAdapter(ViewPager viewPager, ViewGroup indicatorContainer, int indicatorSize, int indicatorMargin,
             int inActiveIndicatorColor, int activeIndicatorColor, int leftButtonResource, int rightButtonResource,
-            ImageView leftButton, ImageView rightButton) {
+            Typeface customTypeFace, ImageView leftButton, ImageView rightButton) {
         mContext = viewPager.getContext();
 
         mViewPager = viewPager;
@@ -72,6 +75,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                 indicatorSize, inActiveIndicatorColor);
         mActiveCircleDrawable = Indicator.newOne(
                 indicatorSize, activeIndicatorColor);
+
+        mCustomTypeFace = customTypeFace;
 
         mLeftButton = leftButton;
         mLeftButton.setImageResource(leftButtonResource);
@@ -176,6 +181,13 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         SwipeItem slideItem = mItems.get(position);
         title.setText(slideItem.title);
         description.setText(slideItem.description);
+
+        // We shouldn't get here if the typeface didn't exist.
+        // But just in case, because we're paranoid.
+        if (mCustomTypeFace != null) {
+            title.setTypeface(mCustomTypeFace);
+            description.setTypeface(mCustomTypeFace);
+        }
 
         layout.setPadding(mContentLeftPadding,
                 mSweetSixteen,
