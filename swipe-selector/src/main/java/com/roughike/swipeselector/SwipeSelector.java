@@ -98,8 +98,8 @@ public class SwipeSelector extends FrameLayout {
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.swipeselector_layout, this);
 
-        ViewPager mPager = (ViewPager) findViewById(R.id.swipeselector_layout_swipePager);
-        mAdapter = new SwipeAdapter(mPager,
+        ViewPager pager = (ViewPager) findViewById(R.id.swipeselector_layout_swipePager);
+        mAdapter = new SwipeAdapter(pager,
                 (ViewGroup) findViewById(R.id.swipeselector_layout_circleContainer),
                 indicatorSize,
                 indicatorMargin,
@@ -110,7 +110,7 @@ public class SwipeSelector extends FrameLayout {
                 customTypeFace,
                 (ImageView) findViewById(R.id.swipeselector_layout_leftButton),
                 (ImageView) findViewById(R.id.swipeselector_layout_rightButton));
-        mPager.setAdapter(mAdapter);
+        pager.setAdapter(mAdapter);
     }
 
     /**
