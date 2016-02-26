@@ -1,11 +1,7 @@
 # SwipeSelector
-A nicer-looking, more intuitive and highly customizable alternative for radio buttons and dropdowns for Android.
+<img src="https://raw.githubusercontent.com/roughike/SwipeSelector/master/demo_two.gif" width="278" height="492" />
 
-# Demo
 <a href="https://play.google.com/store/apps/details?id=com.iroughapps.swipeselectordemo&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" width="216" height="70"/></a>
-
-<img src="https://raw.githubusercontent.com/roughike/SwipeSelector/master/swipeselector_demo.gif" width="278" height="492" />
-
 
 ## What and why?
 
@@ -106,7 +102,7 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
 
 ## Apps using SwipeSelector
 
-Contact me at iiro.krankka@gmail.com to get a shoutout!
+Send me a pull request with modified README.md or contact me at iiro.krankka@gmail.com to get a shoutout!
 
 ## minSDK Version
 
