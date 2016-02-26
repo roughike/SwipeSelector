@@ -412,9 +412,9 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                     .alpha(0.0f)
                     .setDuration(120)
                     .start();
-        } else {
+        } else if (TAG_HIDDEN.equals(mRightButton.getTag())) {
             mRightButton.setTag(null);
-            mRightButton.setClickable(true  );
+            mRightButton.setClickable(true);
             mRightButton.animate()
                     .alpha(1.0f)
                     .setDuration(120)
