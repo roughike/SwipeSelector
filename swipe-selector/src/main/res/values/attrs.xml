@@ -8,5 +8,7 @@
         <attr name="swipe_leftButtonResource" format="reference" />
         <attr name="swipe_rightButtonResource" format="reference" />
         <attr name="swipe_customFontPath" format="string" />
+        <attr name="swipe_titleTextAppearance" format="reference" />
+        <attr name="swipe_descriptionTextAppearance" format="reference" />
     </declare-styleable>
 </resources>

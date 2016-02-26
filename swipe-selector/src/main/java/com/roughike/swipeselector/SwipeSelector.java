@@ -69,6 +69,8 @@ public class SwipeSelector extends FrameLayout {
         int rightButtonResource;
 
         Typeface customTypeFace = null;
+        int titleTextAppearance;
+        int descriptionTextAppearance;
 
         try {
             indicatorSize = (int) ta.getDimension(R.styleable.SwipeSelector_swipe_indicatorSize,
@@ -91,6 +93,11 @@ public class SwipeSelector extends FrameLayout {
                 customTypeFace = Typeface.createFromAsset(context.getAssets(),
                         customFontPath);
             }
+
+            titleTextAppearance = ta.getResourceId(R.styleable.SwipeSelector_swipe_titleTextAppearance,
+                    -1);
+            descriptionTextAppearance = ta.getResourceId(R.styleable.SwipeSelector_swipe_descriptionTextAppearance,
+                    -1);
         } finally {
             ta.recycle();
         }
@@ -115,6 +122,8 @@ public class SwipeSelector extends FrameLayout {
                 .leftButton(leftButton)
                 .rightButton(rightButton)
                 .customTypeFace(customTypeFace)
+                .titleTextAppearance(titleTextAppearance)
+                .descriptionTextAppearance(descriptionTextAppearance)
                 .build();
         pager.setAdapter(mAdapter);
     }

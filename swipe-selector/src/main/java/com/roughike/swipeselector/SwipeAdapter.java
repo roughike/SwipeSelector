@@ -3,6 +3,7 @@ package com.roughike.swipeselector;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -45,6 +46,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     private final ShapeDrawable mActiveCircleDrawable;
 
     private final Typeface mCustomTypeFace;
+    private final int mTitleTextAppearance;
+    private final int mDescriptionTextAppearance;
 
     private final ImageView mLeftButton;
     private final ImageView mRightButton;
@@ -60,8 +63,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     private OnSwipeItemSelectedListener mOnItemSelectedListener;
 
     private SwipeAdapter(ViewPager viewPager, ViewGroup indicatorContainer, int indicatorSize, int indicatorMargin,
-            int inActiveIndicatorColor, int activeIndicatorColor, int leftButtonResource, int rightButtonResource,
-            ImageView leftButton, ImageView rightButton, Typeface customTypeFace) {
+                         int inActiveIndicatorColor, int activeIndicatorColor, int leftButtonResource, int rightButtonResource,
+                         ImageView leftButton, ImageView rightButton, Typeface customTypeFace, int titleTextAppearance, int descriptionTextAppearance) {
         mContext = viewPager.getContext();
 
         mViewPager = viewPager;
@@ -77,6 +80,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                 indicatorSize, activeIndicatorColor);
 
         mCustomTypeFace = customTypeFace;
+        mTitleTextAppearance = titleTextAppearance;
+        mDescriptionTextAppearance = descriptionTextAppearance;
 
         mLeftButton = leftButton;
         mLeftButton.setImageResource(leftButtonResource);
@@ -123,6 +128,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         private ImageView rightButton;
 
         private Typeface customTypeFace;
+        private int titleTextAppearance;
+        private int descriptionTextAppearance;
 
         protected Builder(){}
 
@@ -181,6 +188,16 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
             return this;
         }
 
+        protected Builder titleTextAppearance(int titleTextAppearance) {
+            this.titleTextAppearance = titleTextAppearance;
+            return this;
+        }
+
+        public Builder descriptionTextAppearance(int descriptionTextAppearance) {
+            this.descriptionTextAppearance = descriptionTextAppearance;
+            return this;
+        }
+
         protected SwipeAdapter build() {
             return new SwipeAdapter(viewPager,
                     indicatorContainer,
@@ -192,7 +209,9 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                     rightButtonResource,
                     leftButton,
                     rightButton,
-                    customTypeFace);
+                    customTypeFace,
+                    titleTextAppearance,
+                    descriptionTextAppearance);
         }
     }
 
@@ -285,6 +304,14 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
             description.setTypeface(mCustomTypeFace);
         }
 
+        if (mTitleTextAppearance != -1) {
+            setTextAppearanceCompat(title, mTitleTextAppearance);
+        }
+
+        if (mDescriptionTextAppearance != -1) {
+            setTextAppearanceCompat(description, mDescriptionTextAppearance);
+        }
+
         layout.setPadding(mContentLeftPadding,
                 mSweetSixteen,
                 mContentRightPadding,
@@ -292,6 +319,15 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         container.addView(layout);
         return layout;
+    }
+
+    @SuppressWarnings("deprecation")
+    private void setTextAppearanceCompat(TextView textView, int appearanceRes) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            textView.setTextAppearance(appearanceRes);
+        } else {
+            textView.setTextAppearance(textView.getContext(), appearanceRes);
+        }
     }
 
     @Override
