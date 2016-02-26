@@ -89,7 +89,7 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
     app:swipe_descriptionTextAppearance="@style/MyDescriptionTextApperance" />
 ```
 
-**Attribute explanations**
+###Attribute explanations
 
 <dl>
   <dt>swipe_indicatorSize</dt>
