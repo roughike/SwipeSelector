@@ -68,7 +68,7 @@ public class SwipeSelector extends FrameLayout {
         int leftButtonResource;
         int rightButtonResource;
 
-        Typeface customTypeFace = null;
+        String customFontPath;
         int titleTextAppearance;
         int descriptionTextAppearance;
 
@@ -87,7 +87,7 @@ public class SwipeSelector extends FrameLayout {
             rightButtonResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_rightButtonResource,
                     R.drawable.ic_action_navigation_chevron_right);
 
-            String customFontPath = ta.getString(R.styleable.SwipeSelector_swipe_customFontPath);
+            customFontPath = ta.getString(R.styleable.SwipeSelector_swipe_customFontPath);
             titleTextAppearance = ta.getResourceId(R.styleable.SwipeSelector_swipe_titleTextAppearance,
                     -1);
             descriptionTextAppearance = ta.getResourceId(R.styleable.SwipeSelector_swipe_descriptionTextAppearance,
@@ -115,7 +115,7 @@ public class SwipeSelector extends FrameLayout {
                 .rightButtonResource(rightButtonResource)
                 .leftButton(leftButton)
                 .rightButton(rightButton)
-                .customTypeFace(customTypeFace)
+                .customTypeFace(customFontPath)
                 .titleTextAppearance(titleTextAppearance)
                 .descriptionTextAppearance(descriptionTextAppearance)
                 .build();
