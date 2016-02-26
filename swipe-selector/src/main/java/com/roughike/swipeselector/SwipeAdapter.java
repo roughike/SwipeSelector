@@ -59,9 +59,9 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     private OnSwipeItemSelectedListener mOnItemSelectedListener;
 
-    protected SwipeAdapter(ViewPager viewPager, ViewGroup indicatorContainer, int indicatorSize, int indicatorMargin,
+    private SwipeAdapter(ViewPager viewPager, ViewGroup indicatorContainer, int indicatorSize, int indicatorMargin,
             int inActiveIndicatorColor, int activeIndicatorColor, int leftButtonResource, int rightButtonResource,
-            Typeface customTypeFace, ImageView leftButton, ImageView rightButton) {
+            ImageView leftButton, ImageView rightButton, Typeface customTypeFace) {
         mContext = viewPager.getContext();
 
         mViewPager = viewPager;
@@ -98,6 +98,102 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         mLeftButton.setTag(TAG_HIDDEN);
         mLeftButton.setClickable(false);
         mLeftButton.setAlpha(0.0f);
+    }
+
+    /**
+     * Using the Java Builder Pattern here, because the SwipeSelector class was getting
+     * messy and that's where most will look at. This class is protected, and contains no
+     * methods that the users can use, so it's OK for this to look like absolute vomit.
+     *
+     * At least that's my opinion. But my opinions are always right.
+     */
+    protected static class Builder {
+        private ViewPager viewPager;
+        private ViewGroup indicatorContainer;
+
+        private int indicatorSize;
+        private int indicatorMargin;
+        private int inActiveIndicatorColor;
+        private int activeIndicatorColor;
+
+        private int leftButtonResource;
+        private int rightButtonResource;
+
+        private ImageView leftButton;
+        private ImageView rightButton;
+
+        private Typeface customTypeFace;
+
+        protected Builder(){}
+
+        protected Builder viewPager(ViewPager viewPager) {
+            this.viewPager = viewPager;
+            return this;
+        }
+
+        protected Builder indicatorContainer(ViewGroup indicatorContainer) {
+            this.indicatorContainer = indicatorContainer;
+            return this;
+        }
+
+        protected Builder indicatorSize(int indicatorSize) {
+            this.indicatorSize = indicatorSize;
+            return this;
+        }
+
+        protected Builder indicatorMargin(int indicatorMargin) {
+            this.indicatorMargin = indicatorMargin;
+            return this;
+        }
+
+        protected Builder inActiveIndicatorColor(int inActiveIndicatorColor) {
+            this.inActiveIndicatorColor = inActiveIndicatorColor;
+            return this;
+        }
+
+        protected Builder activeIndicatorColor(int activeIndicatorColor) {
+            this.activeIndicatorColor = activeIndicatorColor;
+            return this;
+        }
+
+        protected Builder leftButtonResource(int leftButtonResource) {
+            this.leftButtonResource = leftButtonResource;
+            return this;
+        }
+
+        protected Builder rightButtonResource(int rightButtonResource) {
+            this.rightButtonResource = rightButtonResource;
+            return this;
+        }
+
+        protected Builder leftButton(ImageView leftButton) {
+            this.leftButton = leftButton;
+            return this;
+        }
+
+        protected Builder rightButton(ImageView rightButton) {
+            this.rightButton = rightButton;
+            return this;
+        }
+
+        protected Builder customTypeFace(Typeface customTypeFace) {
+            this.customTypeFace = customTypeFace;
+            return this;
+        }
+
+        protected SwipeAdapter build() {
+            return new SwipeAdapter(viewPager,
+                    indicatorContainer,
+                    indicatorSize,
+                    indicatorMargin,
+                    inActiveIndicatorColor,
+                    activeIndicatorColor,
+                    leftButtonResource,
+                    rightButtonResource,
+                    leftButton,
+                    rightButton,
+                    customTypeFace);
+        }
     }
 
     protected void setOnItemSelectedListener(OnSwipeItemSelectedListener listener) {
