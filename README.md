@@ -89,8 +89,6 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
     app:swipe_descriptionTextAppearance="@style/MyDescriptionTextApperance" />
 ```
 
-###Attribute explanations
-
 <dl>
   <dt>swipe_indicatorSize</dt>
   <dd>the size for the circle indicators.</dd>
