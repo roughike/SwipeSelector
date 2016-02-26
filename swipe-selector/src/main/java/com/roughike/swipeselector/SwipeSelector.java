@@ -34,18 +34,7 @@ public class SwipeSelector extends FrameLayout {
     private static final int DEFAULT_INDICATOR_SIZE = 6;
     private static final int DEFAULT_INDICATOR_MARGIN = 8;
 
-    private ViewPager mPager;
     private SwipeAdapter mAdapter;
-
-    private int mIndicatorSize;
-    private int mIndicatorMargin;
-    private int mIndicatorInActiveColor;
-    private int mIndicatorActiveColor;
-
-    private int mLeftButtonResource;
-    private int mRightButtonResource;
-
-    private Typeface mCustomTypeFace;
 
     public SwipeSelector(Context context) {
         super(context);
@@ -72,25 +61,34 @@ public class SwipeSelector extends FrameLayout {
         TypedArray ta = context.getTheme().obtainStyledAttributes(attrs,
                 R.styleable.SwipeSelector, defStyleAttr, defStyleRes);
 
+        int indicatorSize;
+        int indicatorMargin;
+        int indicatorInActiveColor;
+        int indicatorActiveColor;
+        int leftButtonResource;
+        int rightButtonResource;
+
+        Typeface customTypeFace = null;
+
         try {
-            mIndicatorSize = (int) ta.getDimension(R.styleable.SwipeSelector_swipe_indicatorSize,
+            indicatorSize = (int) ta.getDimension(R.styleable.SwipeSelector_swipe_indicatorSize,
                     PixelUtils.dpToPixel(context, DEFAULT_INDICATOR_SIZE));
-            mIndicatorMargin = (int) ta.getDimension(R.styleable.SwipeSelector_swipe_indicatorMargin,
+            indicatorMargin = (int) ta.getDimension(R.styleable.SwipeSelector_swipe_indicatorMargin,
                     PixelUtils.dpToPixel(context, DEFAULT_INDICATOR_MARGIN));
-            mIndicatorInActiveColor = ta.getColor(R.styleable.SwipeSelector_swipe_indicatorInActiveColor,
+            indicatorInActiveColor = ta.getColor(R.styleable.SwipeSelector_swipe_indicatorInActiveColor,
                     ContextCompat.getColor(context, R.color.swipeselector_color_indicator_inactive));
-            mIndicatorActiveColor = ta.getColor(R.styleable.SwipeSelector_swipe_indicatorActiveColor,
+            indicatorActiveColor = ta.getColor(R.styleable.SwipeSelector_swipe_indicatorActiveColor,
                     ContextCompat.getColor(context, R.color.swipeselector_color_indicator_active));
 
-            mLeftButtonResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_leftButtonResource,
+            leftButtonResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_leftButtonResource,
                     R.drawable.ic_action_navigation_chevron_left);
-            mRightButtonResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_rightButtonResource,
+            rightButtonResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_rightButtonResource,
                     R.drawable.ic_action_navigation_chevron_right);
 
             String customFontPath = ta.getString(R.styleable.SwipeSelector_swipe_customFontPath);
 
             if (customFontPath != null && !customFontPath.isEmpty()) {
-                mCustomTypeFace = Typeface.createFromAsset(context.getAssets(),
+                customTypeFace = Typeface.createFromAsset(context.getAssets(),
                         customFontPath);
             }
         } finally {
@@ -100,16 +98,16 @@ public class SwipeSelector extends FrameLayout {
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.swipeselector_layout, this);
 
-        mPager = (ViewPager) findViewById(R.id.swipeselector_layout_swipePager);
+        ViewPager mPager = (ViewPager) findViewById(R.id.swipeselector_layout_swipePager);
         mAdapter = new SwipeAdapter(mPager,
                 (ViewGroup) findViewById(R.id.swipeselector_layout_circleContainer),
-                mIndicatorSize,
-                mIndicatorMargin,
-                mIndicatorInActiveColor,
-                mIndicatorActiveColor,
-                mLeftButtonResource,
-                mRightButtonResource,
-                mCustomTypeFace,
+                indicatorSize,
+                indicatorMargin,
+                indicatorInActiveColor,
+                indicatorActiveColor,
+                leftButtonResource,
+                rightButtonResource,
+                customTypeFace,
                 (ImageView) findViewById(R.id.swipeselector_layout_leftButton),
                 (ImageView) findViewById(R.id.swipeselector_layout_rightButton));
         mPager.setAdapter(mAdapter);
