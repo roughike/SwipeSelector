@@ -91,14 +91,28 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
 
 **Attribute explanations**
 
-* **swipe_indicatorSize**: the size for the circle indicators.
-* **swipe_indicatorMargin**: how far the indicators are from each other.
-* **swipe_indicatorInActiveColor**: the color for normal unselected indicators.
-* **swipe_indicatorActiveColor**: the color for selected indicator.
-* **swipe_leftButtonResource** and **swipe_rightButtonResource**: custom Drawable resources for the left and right buttons. The margins for the content are calculated automatically, so even a bigger custom image won't overlap the content.
-* **swipe_customFontPath**: path for your custom font file, such as ```fonts/MySuperDuperFont.ttf```. In that case your font path would look like ```src/main/assets/fonts/MySuperDuperFont.ttf```, but you only need to provide ```fonts/MySuperDuperFont.ttf```, as the asset folder will be auto-filled for you.
-* **swipe_titleTextAppearance** and **swipe_descriptionTextAppearance**: custom TextAppearance for the title and description TextViews for modifying the font sizes and colors and what not.
+<dl>
+  <dt>swipe_indicatorSize</dt>
+  <dd>the size for the circle indicators.</dd>
 
+  <dt>swipe_indicatorMargin</dt>
+  <dd>how far the indicators are from each other.</dd>
+
+  <dt>swipe_indicatorInActiveColor</dt>
+  <dd>the color for normal unselected indicators.</dd>
+
+  <dt>swipe_indicatorActiveColor</dt>
+  <dd>the color for selected indicator.</dd>
+
+  <dt>swipe_leftButtonResource and swipe_rightButtonResource</dt>
+  <dd>custom Drawable resources for the left and right buttons. The margins for the content are calculated automatically, so even a bigger custom image won't overlap the content.</dd>
+
+  <dt>swipe_customFontPath</dt>
+  <dd>path for your custom font file, such as <code>fonts/MySuperDuperFont.ttf</code>. In that case your font path would look like <code>src/main/assets/fonts/MySuperDuperFont.ttf</code>, but you only need to provide <code>fonts/MySuperDuperFont.ttf</code>, as the asset folder will be auto-filled for you.</dd>
+
+  <dt>swipe_titleTextAppearance and swipe_descriptionTextAppearance</dt>
+  <dd>custom TextAppearance for the title and description TextViews for modifying the font sizes and colors and what not.</dd>
+</dl>
 
 ## Apps using SwipeSelector
 
