@@ -14,7 +14,7 @@ Unfortunately, there were no ready-made solutions to achieve this, so I spent a 
 **Gradle:**
 
 ```groovy
-compile 'com.roughike:swipe-selector:1.0.3'
+compile 'com.roughike:swipe-selector:1.0.4'
 ```
 
 **Maven:**
@@ -22,7 +22,7 @@ compile 'com.roughike:swipe-selector:1.0.3'
 <dependency>
   <groupId>com.roughike</groupId>
   <artifactId>swipe-selector</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <type>pom</type>
 </dependency>
 ```
@@ -86,19 +86,35 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
     app:swipe_rightButtonResource="@drawable/rightButtonResource"
     app:swipe_customFontPath="fonts/MySuperDuperFont.ttf"
     app:swipe_titleTextAppearance="@style/MyTitleTextApperance"
-    app:swipe_descriptionTextAppearance="@style/MyDescriptionTextApperance" />
+    app:swipe_descriptionTextAppearance="@style/MyDescriptionTextApperance"
+    app:swipe_descriptionGravity="center" />
 ```
 
-**Attribute explanations**
+<dl>
+  <dt>swipe_indicatorSize</dt>
+  <dd>the size for the circle indicators.</dd>
 
-* **swipe_indicatorSize**: the size for the circle indicators.
-* **swipe_indicatorMargin**: how far the indicators are from each other.
-* **swipe_indicatorInActiveColor**: the color for normal unselected indicators.
-* **swipe_indicatorActiveColor**: the color for selected indicator.
-* **swipe_leftButtonResource** and **swipe_rightButtonResource**: custom Drawable resources for the left and right buttons. The margins for the content are calculated automatically, so even a bigger custom image won't overlap the content.
-* **swipe_customFontPath**: path for your custom font file, such as ```fonts/MySuperDuperFont.ttf```. In that case your font path would look like ```src/main/assets/fonts/MySuperDuperFont.ttf```, but you only need to provide ```fonts/MySuperDuperFont.ttf```, as the asset folder will be auto-filled for you.
-* **swipe_titleTextAppearance** and **swipe_descriptionTextAppearance**: custom TextAppearance for the title and description TextViews for modifying the font sizes and colors and what not.
+  <dt>swipe_indicatorMargin</dt>
+  <dd>how far the indicators are from each other.</dd>
 
+  <dt>swipe_indicatorInActiveColor</dt>
+  <dd>the color for normal unselected indicators.</dd>
+
+  <dt>swipe_indicatorActiveColor</dt>
+  <dd>the color for selected indicator.</dd>
+
+  <dt>swipe_leftButtonResource and swipe_rightButtonResource</dt>
+  <dd>custom Drawable resources for the left and right buttons. The margins for the content are calculated automatically, so even a bigger custom image won't overlap the content.</dd>
+
+  <dt>swipe_customFontPath</dt>
+  <dd>path for your custom font file, such as <code>fonts/MySuperDuperFont.ttf</code>. In that case your font path would look like <code>src/main/assets/fonts/MySuperDuperFont.ttf</code>, but you only need to provide <code>fonts/MySuperDuperFont.ttf</code>, as the asset folder will be auto-filled for you.</dd>
+
+  <dt>swipe_titleTextAppearance and swipe_descriptionTextAppearance</dt>
+  <dd>custom TextAppearance for the title and description TextViews for modifying the font sizes and colors and what not.</dd>
+  
+  <dt>swipe_descriptionGravity</dt>
+  <dd>custom horizontal gravity (in other words alignment) for the description text. Can be either <code>left</code>, <code>center</code> or <code>right</code>. Default should be fine in most cases, but sometimes you might need to modify this.</dd>
+</dl>
 
 ## Apps using SwipeSelector
 
