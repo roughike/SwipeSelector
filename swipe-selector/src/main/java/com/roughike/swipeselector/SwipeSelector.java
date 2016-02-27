@@ -3,7 +3,6 @@ package com.roughike.swipeselector;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -119,7 +118,7 @@ public class SwipeSelector extends FrameLayout {
                 .rightButtonResource(rightButtonResource)
                 .leftButton(leftButton)
                 .rightButton(rightButton)
-                .customTypeFace(customFontPath)
+                .customFontPath(customFontPath)
                 .titleTextAppearance(titleTextAppearance)
                 .descriptionTextAppearance(descriptionTextAppearance)
                 .descriptionGravity(descriptionGravity)

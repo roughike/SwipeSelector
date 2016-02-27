@@ -192,7 +192,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
             return this;
         }
 
-        protected Builder customTypeFace(String customFontPath) {
+        protected Builder customFontPath(String customFontPath) {
             this.customFontPath = customFontPath;
             return this;
         }
