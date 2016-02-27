@@ -14,7 +14,7 @@ Unfortunately, there were no ready-made solutions to achieve this, so I spent a 
 **Gradle:**
 
 ```groovy
-compile 'com.roughike:swipe-selector:1.0.3'
+compile 'com.roughike:swipe-selector:1.0.4'
 ```
 
 **Maven:**
@@ -22,7 +22,7 @@ compile 'com.roughike:swipe-selector:1.0.3'
 <dependency>
   <groupId>com.roughike</groupId>
   <artifactId>swipe-selector</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <type>pom</type>
 </dependency>
 ```
@@ -86,7 +86,8 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
     app:swipe_rightButtonResource="@drawable/rightButtonResource"
     app:swipe_customFontPath="fonts/MySuperDuperFont.ttf"
     app:swipe_titleTextAppearance="@style/MyTitleTextApperance"
-    app:swipe_descriptionTextAppearance="@style/MyDescriptionTextApperance" />
+    app:swipe_descriptionTextAppearance="@style/MyDescriptionTextApperance"
+    app:swipe_descriptionGravity="center" />
 ```
 
 <dl>
@@ -110,6 +111,9 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
 
   <dt>swipe_titleTextAppearance and swipe_descriptionTextAppearance</dt>
   <dd>custom TextAppearance for the title and description TextViews for modifying the font sizes and colors and what not.</dd>
+  
+  <dt>swipe_descriptionGravity</dt>
+  <dd>custom horizontal gravity (in other words alignment) for the description text. Can be either <code>left</code>, <code>center</code> or <code>right</code>. Default should be fine in most cases, but sometimes you might need to modify this.</dd>
 </dl>
 
 ## Apps using SwipeSelector
