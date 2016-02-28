@@ -2,12 +2,12 @@ package com.roughike.swipeselector;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -51,6 +51,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     private Typeface mCustomTypeFace;
     private final int mTitleTextAppearance;
     private final int mDescriptionTextAppearance;
+    private final int mDescriptionGravity;
 
     private final ImageView mLeftButton;
     private final ImageView mRightButton;
@@ -65,7 +66,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     private SwipeAdapter(ViewPager viewPager, ViewGroup indicatorContainer, int indicatorSize, int indicatorMargin,
                          int inActiveIndicatorColor, int activeIndicatorColor, int leftButtonResource, int rightButtonResource,
-                         ImageView leftButton, ImageView rightButton, String customFontPath, int titleTextAppearance, int descriptionTextAppearance) {
+                         ImageView leftButton, ImageView rightButton, String customFontPath, int titleTextAppearance, int descriptionTextAppearance,
+                         int descriptionGravity) {
         mContext = viewPager.getContext();
 
         mViewPager = viewPager;
@@ -89,6 +91,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         mTitleTextAppearance = titleTextAppearance;
         mDescriptionTextAppearance = descriptionTextAppearance;
+        mDescriptionGravity = getGravity(descriptionGravity);
 
         mLeftButton = leftButton;
         mLeftButton.setImageResource(leftButtonResource);
@@ -138,6 +141,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         private String customFontPath;
         private int titleTextAppearance;
         private int descriptionTextAppearance;
+        private int descriptionGravity;
 
         protected Builder(){}
 
@@ -191,7 +195,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
             return this;
         }
 
-        protected Builder customTypeFace(String customFontPath) {
+        protected Builder customFontPath(String customFontPath) {
             this.customFontPath = customFontPath;
             return this;
         }
@@ -203,6 +207,11 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         protected Builder descriptionTextAppearance(int descriptionTextAppearance) {
             this.descriptionTextAppearance = descriptionTextAppearance;
+            return this;
+        }
+
+        protected Builder descriptionGravity(int descriptionGravity) {
+            this.descriptionGravity = descriptionGravity;
             return this;
         }
 
@@ -219,7 +228,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                     rightButton,
                     customFontPath,
                     titleTextAppearance,
-                    descriptionTextAppearance);
+                    descriptionTextAppearance,
+                    descriptionGravity);
         }
     }
 
@@ -292,6 +302,10 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         if (mDescriptionTextAppearance != -1) {
             setTextAppearanceCompat(description, mDescriptionTextAppearance);
+        }
+
+        if (mDescriptionGravity != -1) {
+            description.setGravity(mDescriptionGravity);
         }
 
         layout.setPadding(mContentLeftPadding,
@@ -388,6 +402,32 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         } else {
             textView.setTextAppearance(textView.getContext(), appearanceRes);
         }
+    }
+
+    private int getGravity(int gravity) {
+        if (gravity == -1)
+            return -1;
+
+        int realGravityValue;
+
+        switch (gravity) {
+            case 0 :
+                realGravityValue = Gravity.START;
+                break;
+            case 1 :
+                realGravityValue = Gravity.CENTER_HORIZONTAL;
+                break;
+            case 2 :
+                realGravityValue = Gravity.END;
+                break;
+            default :
+                throw new IllegalArgumentException("Invalid value " +
+                        "specified for swipe_descriptionGravity. " +
+                        "Use \"left\", \"center\", \"right\" or leave " +
+                        "blank for default.");
+        }
+
+        return realGravityValue;
     }
 
     private void handleLeftButtonVisibility(int position) {

@@ -8,7 +8,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.swipeselector.MainActivity">
+        <activity android:name="com.example.swipeselector.MainActivity"
+            android:configChanges="orientation|screenSize">  <!--Prevent activity
+                                                                    destruction on orientation change: http://stackoverflow.com/a/3329486/3124150-->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
