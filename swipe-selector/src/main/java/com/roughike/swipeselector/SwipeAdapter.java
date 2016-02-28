@@ -2,7 +2,6 @@ package com.roughike.swipeselector;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
