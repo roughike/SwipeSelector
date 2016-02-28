@@ -122,7 +122,7 @@ Send me a pull request with modified README.md or contact me at iiro.krankka@gma
 
 ## minSDK Version
 
-The lowest supported SDK version is currently 14.
+The lowest supported SDK version is currently 8.
 
 ## Contributions
 
