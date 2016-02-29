@@ -2,9 +2,9 @@ package com.roughike.swipeselector;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -264,6 +264,17 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     protected SwipeItem getSelectedItem() {
         return mItems.get(mCurrentPosition);
+    }
+
+    protected Bundle onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("currentPosition", mCurrentPosition);
+        return bundle;
+    }
+
+    protected void onRestoreInstanceState(Bundle state) {
+        mViewPager.setCurrentItem(state.getInt("currentPosition"), false);
+        notifyDataSetChanged();
     }
 
     /**

@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -151,5 +154,32 @@ public class SwipeSelector extends FrameLayout {
         }
 
         return mAdapter.getSelectedItem();
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Bundle bundle = mAdapter.onSaveInstanceState();
+        bundle.putParcelable("superState", super.onSaveInstanceState());
+        return bundle;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {//Shouldn't be needed, just in case
+            Bundle bundle = (Bundle) state;
+            mAdapter.onRestoreInstanceState(bundle);
+            state = bundle.getParcelable("superState");
+        }
+        super.onRestoreInstanceState(state);
+    }
+
+    @Override
+    protected void dispatchSaveInstanceState(SparseArray<Parcelable> container) {
+        dispatchFreezeSelfOnly(container);
+    }
+
+    @Override
+    protected void dispatchRestoreInstanceState(SparseArray<Parcelable> container) {
+        dispatchThawSelfOnly(container);
     }
 }
