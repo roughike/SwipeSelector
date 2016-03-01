@@ -37,6 +37,7 @@ import java.util.Arrays;
  *    limitations under the License.
  */
 class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPager.OnPageChangeListener {
+    private static final String STATE_CURRENT_POSITION = "STATE_CURRENT_POSITION";
     private static final String TAG_CIRCLE = "TAG_CIRCLE";
 
     // For the left and right buttons when they're not visible
@@ -282,12 +283,12 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     protected Bundle onSaveInstanceState() {
         Bundle bundle = new Bundle();
-        bundle.putInt("currentPosition", mCurrentPosition);
+        bundle.putInt(STATE_CURRENT_POSITION, mCurrentPosition);
         return bundle;
     }
 
     protected void onRestoreInstanceState(Bundle state) {
-        mViewPager.setCurrentItem(state.getInt("currentPosition"), false);
+        mViewPager.setCurrentItem(state.getInt(STATE_CURRENT_POSITION), false);
         notifyDataSetChanged();
     }
 
