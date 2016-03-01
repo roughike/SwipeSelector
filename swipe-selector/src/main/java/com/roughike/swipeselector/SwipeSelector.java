@@ -3,7 +3,6 @@ package com.roughike.swipeselector;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -36,6 +35,7 @@ import android.widget.ImageView;
 public class SwipeSelector extends FrameLayout {
     private static final int DEFAULT_INDICATOR_SIZE = 6;
     private static final int DEFAULT_INDICATOR_MARGIN = 8;
+    private static final String STATE_SELECTOR = "STATE_SELECTOR";
 
     private SwipeAdapter mAdapter;
 
@@ -74,6 +74,8 @@ public class SwipeSelector extends FrameLayout {
         String customFontPath;
         int titleTextAppearance;
         int descriptionTextAppearance;
+        int titleGravity;
+        int descriptionGravity;
 
         try {
             indicatorSize = (int) ta.getDimension(R.styleable.SwipeSelector_swipe_indicatorSize,
@@ -94,6 +96,8 @@ public class SwipeSelector extends FrameLayout {
             titleTextAppearance = ta.getResourceId(R.styleable.SwipeSelector_swipe_titleTextAppearance,
                     -1);
             descriptionTextAppearance = ta.getResourceId(R.styleable.SwipeSelector_swipe_descriptionTextAppearance,
+                    -1);
+            descriptionGravity = ta.getInteger(R.styleable.SwipeSelector_swipe_descriptionGravity,
                     -1);
         } finally {
             ta.recycle();
@@ -118,9 +122,10 @@ public class SwipeSelector extends FrameLayout {
                 .rightButtonResource(rightButtonResource)
                 .leftButton(leftButton)
                 .rightButton(rightButton)
-                .customTypeFace(customFontPath)
+                .customFontPath(customFontPath)
                 .titleTextAppearance(titleTextAppearance)
                 .descriptionTextAppearance(descriptionTextAppearance)
+                .descriptionGravity(descriptionGravity)
                 .build();
         pager.setAdapter(mAdapter);
     }
@@ -159,7 +164,7 @@ public class SwipeSelector extends FrameLayout {
     @Override
     public Parcelable onSaveInstanceState() {
         Bundle bundle = mAdapter.onSaveInstanceState();
-        bundle.putParcelable("superState", super.onSaveInstanceState());
+        bundle.putParcelable(STATE_SELECTOR, super.onSaveInstanceState());
         return bundle;
     }
 
@@ -168,7 +173,7 @@ public class SwipeSelector extends FrameLayout {
         if (state instanceof Bundle) {//Shouldn't be needed, just in case
             Bundle bundle = (Bundle) state;
             mAdapter.onRestoreInstanceState(bundle);
-            state = bundle.getParcelable("superState");
+            state = bundle.getParcelable(STATE_SELECTOR);
         }
         super.onRestoreInstanceState(state);
     }

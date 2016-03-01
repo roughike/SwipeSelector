@@ -1,5 +1,7 @@
 package com.roughike.swipeselector;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -34,6 +37,7 @@ import java.util.Arrays;
  *    limitations under the License.
  */
 class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPager.OnPageChangeListener {
+    private static final String STATE_CURRENT_POSITION = "STATE_CURRENT_POSITION";
     private static final String TAG_CIRCLE = "TAG_CIRCLE";
 
     // For the left and right buttons when they're not visible
@@ -51,6 +55,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     private Typeface mCustomTypeFace;
     private final int mTitleTextAppearance;
     private final int mDescriptionTextAppearance;
+    private final int mDescriptionGravity;
 
     private final ImageView mLeftButton;
     private final ImageView mRightButton;
@@ -65,7 +70,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     private SwipeAdapter(ViewPager viewPager, ViewGroup indicatorContainer, int indicatorSize, int indicatorMargin,
                          int inActiveIndicatorColor, int activeIndicatorColor, int leftButtonResource, int rightButtonResource,
-                         ImageView leftButton, ImageView rightButton, String customFontPath, int titleTextAppearance, int descriptionTextAppearance) {
+                         ImageView leftButton, ImageView rightButton, String customFontPath, int titleTextAppearance, int descriptionTextAppearance,
+                         int descriptionGravity) {
         mContext = viewPager.getContext();
 
         mViewPager = viewPager;
@@ -89,6 +95,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         mTitleTextAppearance = titleTextAppearance;
         mDescriptionTextAppearance = descriptionTextAppearance;
+        mDescriptionGravity = getGravity(descriptionGravity);
 
         mLeftButton = leftButton;
         mLeftButton.setImageResource(leftButtonResource);
@@ -117,7 +124,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
      * Using the Java Builder Pattern here, because the SwipeSelector class was getting
      * messy and that's where most will look at. This class is protected, and contains no
      * methods that the users can use, so it's OK for this to look like absolute vomit.
-     *
+     * <p/>
      * At least that's my opinion. But my opinions are always right.
      */
     protected static class Builder {
@@ -138,8 +145,10 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         private String customFontPath;
         private int titleTextAppearance;
         private int descriptionTextAppearance;
+        private int descriptionGravity;
 
-        protected Builder(){}
+        protected Builder() {
+        }
 
         protected Builder viewPager(ViewPager viewPager) {
             this.viewPager = viewPager;
@@ -191,7 +200,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
             return this;
         }
 
-        protected Builder customTypeFace(String customFontPath) {
+        protected Builder customFontPath(String customFontPath) {
             this.customFontPath = customFontPath;
             return this;
         }
@@ -203,6 +212,11 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         protected Builder descriptionTextAppearance(int descriptionTextAppearance) {
             this.descriptionTextAppearance = descriptionTextAppearance;
+            return this;
+        }
+
+        protected Builder descriptionGravity(int descriptionGravity) {
+            this.descriptionGravity = descriptionGravity;
             return this;
         }
 
@@ -219,7 +233,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                     rightButton,
                     customFontPath,
                     titleTextAppearance,
-                    descriptionTextAppearance);
+                    descriptionTextAppearance,
+                    descriptionGravity);
         }
     }
 
@@ -268,12 +283,12 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     protected Bundle onSaveInstanceState() {
         Bundle bundle = new Bundle();
-        bundle.putInt("currentPosition", mCurrentPosition);
+        bundle.putInt(STATE_CURRENT_POSITION, mCurrentPosition);
         return bundle;
     }
 
     protected void onRestoreInstanceState(Bundle state) {
-        mViewPager.setCurrentItem(state.getInt("currentPosition"), false);
+        mViewPager.setCurrentItem(state.getInt(STATE_CURRENT_POSITION), false);
         notifyDataSetChanged();
     }
 
@@ -305,6 +320,10 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
             setTextAppearanceCompat(description, mDescriptionTextAppearance);
         }
 
+        if (mDescriptionGravity != -1) {
+            description.setGravity(mDescriptionGravity);
+        }
+
         layout.setPadding(mContentLeftPadding,
                 mSweetSixteen,
                 mContentRightPadding,
@@ -321,7 +340,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     @Override
     public int getCount() {
-        return mItems != null? mItems.size() : 0;
+        return mItems != null ? mItems.size() : 0;
     }
 
     @Override
@@ -401,6 +420,32 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         }
     }
 
+    private int getGravity(int gravity) {
+        if (gravity == -1)
+            return -1;
+
+        int realGravityValue;
+
+        switch (gravity) {
+            case 0:
+                realGravityValue = Gravity.START;
+                break;
+            case 1:
+                realGravityValue = Gravity.CENTER_HORIZONTAL;
+                break;
+            case 2:
+                realGravityValue = Gravity.END;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid value " +
+                        "specified for swipe_descriptionGravity. " +
+                        "Use \"left\", \"center\", \"right\" or leave " +
+                        "blank for default.");
+        }
+
+        return realGravityValue;
+    }
+
     private void handleLeftButtonVisibility(int position) {
         if (position < 1) {
             mLeftButton.setTag(TAG_HIDDEN);
@@ -432,9 +477,10 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                     .setDuration(120)
                     .start();
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-            button.animate()
-                    .alpha(alpha)
-                    .setDuration(120);
+            ObjectAnimator.ofFloat(button, "alpha",
+                    alpha == 1 ? 0 : alpha, alpha == 1 ? alpha : 0)
+                    .setDuration(120)
+                    .start();
         } else {
             setAlpha(alpha, button);
         }
@@ -442,10 +488,10 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     @SuppressWarnings("deprecation")
     private void setAlpha(float alpha, ImageView button) {
-        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             button.setAlpha(alpha);
-        else {
-            button.setAlpha((int) (alpha*255));
+        } else {
+            button.setAlpha((int) (alpha * 255));
         }
     }
 }

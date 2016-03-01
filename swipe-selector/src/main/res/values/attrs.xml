@@ -10,5 +10,11 @@
         <attr name="swipe_customFontPath" format="string" />
         <attr name="swipe_titleTextAppearance" format="reference" />
         <attr name="swipe_descriptionTextAppearance" format="reference" />
+
+        <attr name="swipe_descriptionGravity" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="center" value="1" />
+            <enum name="right" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>
