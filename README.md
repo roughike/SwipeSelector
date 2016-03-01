@@ -9,6 +9,10 @@ Bored of dull looking radio buttons and dropdowns? Me too. I started looking for
 
 Unfortunately, there were no ready-made solutions to achieve this, so I spent a good day working on this very thing I call SwipeSelector.
 
+## minSDK Version
+
+SwipeSelector supports API levels all the way down to 8 (Android Froyo).
+
 ## Installation
 
 **Gradle:**
@@ -119,10 +123,6 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
 ## Apps using SwipeSelector
 
 Send me a pull request with modified README.md or contact me at iiro.krankka@gmail.com to get a shoutout!
-
-## minSDK Version
-
-The lowest supported SDK version is currently 8.
 
 ## Contributions
 
