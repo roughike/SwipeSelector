@@ -1,5 +1,7 @@
 package com.roughike.swipeselector;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
@@ -121,7 +123,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
      * Using the Java Builder Pattern here, because the SwipeSelector class was getting
      * messy and that's where most will look at. This class is protected, and contains no
      * methods that the users can use, so it's OK for this to look like absolute vomit.
-     *
+     * <p/>
      * At least that's my opinion. But my opinions are always right.
      */
     protected static class Builder {
@@ -144,7 +146,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         private int descriptionTextAppearance;
         private int descriptionGravity;
 
-        protected Builder(){}
+        protected Builder() {
+        }
 
         protected Builder viewPager(ViewPager viewPager) {
             this.viewPager = viewPager;
@@ -336,7 +339,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     @Override
     public int getCount() {
-        return mItems != null? mItems.size() : 0;
+        return mItems != null ? mItems.size() : 0;
     }
 
     @Override
@@ -423,16 +426,16 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         int realGravityValue;
 
         switch (gravity) {
-            case 0 :
+            case 0:
                 realGravityValue = Gravity.START;
                 break;
-            case 1 :
+            case 1:
                 realGravityValue = Gravity.CENTER_HORIZONTAL;
                 break;
-            case 2 :
+            case 2:
                 realGravityValue = Gravity.END;
                 break;
-            default :
+            default:
                 throw new IllegalArgumentException("Invalid value " +
                         "specified for swipe_descriptionGravity. " +
                         "Use \"left\", \"center\", \"right\" or leave " +
@@ -473,9 +476,10 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                     .setDuration(120)
                     .start();
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-            button.animate()
-                    .alpha(alpha)
-                    .setDuration(120);
+            ObjectAnimator.ofFloat(button, "alpha",
+                    alpha == 1 ? 0 : alpha, alpha == 1 ? alpha : 0)
+                    .setDuration(120)
+                    .start();
         } else {
             setAlpha(alpha, button);
         }
@@ -483,10 +487,10 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     @SuppressWarnings("deprecation")
     private void setAlpha(float alpha, ImageView button) {
-        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             button.setAlpha(alpha);
-        else {
-            button.setAlpha((int) (alpha*255));
+        } else {
+            button.setAlpha((int) (alpha * 255));
         }
     }
 }
