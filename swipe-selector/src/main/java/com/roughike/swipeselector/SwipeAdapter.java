@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -82,7 +83,9 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         mActiveCircleDrawable = Indicator.newOne(
                 indicatorSize, activeIndicatorColor);
 
-        if (customFontPath != null && !customFontPath.isEmpty()) {
+        if (customFontPath != null &&
+                ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && !customFontPath.isEmpty())
+                        || customFontPath.length() > 0)) {
             mCustomTypeFace = Typeface.createFromAsset(mContext.getAssets(),
                     customFontPath);
         }
@@ -110,7 +113,8 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         mLeftButton.setTag(TAG_HIDDEN);
         mLeftButton.setClickable(false);
-        mLeftButton.setAlpha(0.0f);
+
+        setAlpha(0.0f, mLeftButton);
     }
 
     /**
@@ -273,6 +277,17 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         return mItems.get(mCurrentPosition);
     }
 
+    protected Bundle onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("currentPosition", mCurrentPosition);
+        return bundle;
+    }
+
+    protected void onRestoreInstanceState(Bundle state) {
+        mViewPager.setCurrentItem(state.getInt("currentPosition"), false);
+        notifyDataSetChanged();
+    }
+
     /**
      * Override methods / listeners
      */
@@ -431,17 +446,11 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         if (position < 1) {
             mLeftButton.setTag(TAG_HIDDEN);
             mLeftButton.setClickable(false);
-            mLeftButton.animate()
-                    .alpha(0.0f)
-                    .setDuration(120)
-                    .start();
+            animate(0, mLeftButton);
         } else if (TAG_HIDDEN.equals(mLeftButton.getTag())) {
             mLeftButton.setTag(null);
             mLeftButton.setClickable(true);
-            mLeftButton.animate()
-                    .alpha(1.0f)
-                    .setDuration(120)
-                    .start();
+            animate(1, mLeftButton);
         }
     }
 
@@ -449,17 +458,35 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         if (position == getCount() - 1) {
             mRightButton.setTag(TAG_HIDDEN);
             mRightButton.setClickable(false);
-            mRightButton.animate()
-                    .alpha(0.0f)
-                    .setDuration(120)
-                    .start();
+            animate(0, mRightButton);
         } else if (TAG_HIDDEN.equals(mRightButton.getTag())) {
             mRightButton.setTag(null);
             mRightButton.setClickable(true);
-            mRightButton.animate()
-                    .alpha(1.0f)
+            animate(1, mRightButton);
+        }
+    }
+
+    private void animate(float alpha, ImageView button) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            button.animate()
+                    .alpha(alpha)
                     .setDuration(120)
                     .start();
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+            button.animate()
+                    .alpha(alpha)
+                    .setDuration(120);
+        } else {
+            setAlpha(alpha, button);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void setAlpha(float alpha, ImageView button) {
+        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+            button.setAlpha(alpha);
+        else {
+            button.setAlpha((int) (alpha*255));
         }
     }
 }
