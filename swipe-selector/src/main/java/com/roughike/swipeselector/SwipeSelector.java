@@ -35,6 +35,7 @@ import android.widget.ImageView;
 public class SwipeSelector extends FrameLayout {
     private static final int DEFAULT_INDICATOR_SIZE = 6;
     private static final int DEFAULT_INDICATOR_MARGIN = 8;
+    private static final String STATE_SELECTOR = "STATE_SELECTOR";
 
     private SwipeAdapter mAdapter;
 
@@ -163,7 +164,7 @@ public class SwipeSelector extends FrameLayout {
     @Override
     public Parcelable onSaveInstanceState() {
         Bundle bundle = mAdapter.onSaveInstanceState();
-        bundle.putParcelable("superState", super.onSaveInstanceState());
+        bundle.putParcelable(STATE_SELECTOR, super.onSaveInstanceState());
         return bundle;
     }
 
@@ -172,7 +173,7 @@ public class SwipeSelector extends FrameLayout {
         if (state instanceof Bundle) {//Shouldn't be needed, just in case
             Bundle bundle = (Bundle) state;
             mAdapter.onRestoreInstanceState(bundle);
-            state = bundle.getParcelable("superState");
+            state = bundle.getParcelable(STATE_SELECTOR);
         }
         super.onRestoreInstanceState(state);
     }
