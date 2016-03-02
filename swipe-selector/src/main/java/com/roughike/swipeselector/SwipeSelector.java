@@ -74,7 +74,6 @@ public class SwipeSelector extends FrameLayout {
         String customFontPath;
         int titleTextAppearance;
         int descriptionTextAppearance;
-        int titleGravity;
         int descriptionGravity;
 
         try {
