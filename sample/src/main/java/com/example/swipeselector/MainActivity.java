@@ -8,6 +8,9 @@ import android.widget.Toast;
 import com.roughike.swipeselector.SwipeItem;
 import com.roughike.swipeselector.SwipeSelector;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     /**
      * Size options
@@ -30,14 +33,16 @@ public class MainActivity extends AppCompatActivity {
      */
     private static final int DELIVERY_NONE = 0;
     private static final int DELIVERY_YES = 1;
+    private List<SwipeItem> itemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        itemList = new ArrayList<>();
 
         final SwipeSelector sizeSelector = (SwipeSelector) findViewById(R.id.sizeSelector);
-        sizeSelector.setItems(
+        /*sizeSelector.setItems(
                 new SwipeItem(-1, "Select a size", "Start by swiping left."),
                 new SwipeItem(SIZE_KIDS, "Kids' size", "For the small appetite. Can be shared by four toddlers."),
                 new SwipeItem(SIZE_NORMAL, "Normal", "Our most popular size. Ideal for kids before their growth spurt."),
@@ -45,7 +50,15 @@ public class MainActivity extends AppCompatActivity {
                         "after a bachelor party."),
                 new SwipeItem(SIZE_HUGE, "Huge", "Suitable for families. Also perfect for a bigger appetite if your " +
                         "name happens to be Furious Pete.")
-        );
+        );*/
+        itemList.add(new SwipeItem(-1, "Select a size", "Start by swiping left."));
+        itemList.add(new SwipeItem(SIZE_KIDS, "Kids' size", "For the small appetite. Can be shared by four toddlers."));
+        itemList.add(new SwipeItem(SIZE_NORMAL, "Normal", "Our most popular size. Ideal for kids before their growth spurt."));
+        itemList.add(new SwipeItem(SIZE_LARGE, "Large", "This is two times the normal size. Suits well for the hangover " +
+                "after a bachelor party."));
+        itemList.add(new SwipeItem(SIZE_HUGE, "Huge", "Suitable for families. Also perfect for a bigger appetite if your " +
+                "name happens to be Furious Pete."));
+        sizeSelector.setItems(itemList);
 
         final SwipeSelector toppingSelector = (SwipeSelector) findViewById(R.id.toppingSelector);
         toppingSelector.setItems(

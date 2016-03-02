@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.util.List;
+
 
 /*
  * SwipeSelector library for Android
@@ -137,12 +139,23 @@ public class SwipeSelector extends FrameLayout {
     /**
      * A method for giving this SwipeSelector something to show.
      *
+     * @param swipeItems an list of {@link SwipeItem} to show
+     * inside this view.
+     */
+    public void setItems(List swipeItems) {
+        mAdapter.setItems(swipeItems);
+    }
+
+    /**
+     * A method for giving this SwipeSelector something to show.
+     *
      * @param swipeItems an array of {@link SwipeItem} to show
      * inside this view.
      */
     public void setItems(SwipeItem... swipeItems) {
         mAdapter.setItems(swipeItems);
     }
+
 
     /**
      * @return the selected slides' SwipeItem.

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /*
  * SwipeSelector library for Android
@@ -61,7 +62,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     private final int mContentRightPadding;
 
     private OnSwipeItemSelectedListener mOnItemSelectedListener;
-    private ArrayList<SwipeItem> mItems;
+    private List<SwipeItem> mItems;
     private int mCurrentPosition;
 
     private SwipeAdapter(ViewPager viewPager, ViewGroup indicatorContainer, int indicatorSize, int indicatorMargin,
@@ -111,6 +112,13 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         mLeftButton.setTag(TAG_HIDDEN);
         mLeftButton.setClickable(false);
         mLeftButton.setAlpha(0.0f);
+    }
+
+    public void setItems(List<SwipeItem> swipeItems) {
+        mItems = swipeItems;
+        mCurrentPosition = 0;
+        setActiveIndicator(0);
+        notifyDataSetChanged();
     }
 
     /**
