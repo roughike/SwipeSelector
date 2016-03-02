@@ -1,7 +1,6 @@
 package com.roughike.swipeselector;
 
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
@@ -254,7 +253,16 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
             for (SwipeItem item : items) {
                 if (item.titleRes != -1) {
-                    item.title = mContext.getString(item.titleRes);
+                    if(!item.isTitleImage) {
+                        item.title = mContext.getString(item.titleRes);
+                    } else {
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            item.image = mContext.getDrawable(item.titleRes);
+                        } else {
+                            //noinspection deprecation
+                            item.image = mContext.getResources().getDrawable(item.titleRes);
+                        }
+                    }
                 }
 
                 if (item.descriptionRes != -1) {
@@ -297,32 +305,45 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
      */
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        LinearLayout layout = (LinearLayout) View.inflate(mContext, R.layout.swipeselector_content_item, null);
-        TextView title = (TextView) layout.findViewById(R.id.swipeselector_content_title);
-        TextView description = (TextView) layout.findViewById(R.id.swipeselector_content_description);
-
         SwipeItem slideItem = mItems.get(position);
-        title.setText(slideItem.title);
-        description.setText(slideItem.description);
+        LinearLayout layout;
 
-        // We shouldn't get here if the typeface didn't exist.
-        // But just in case, because we're paranoid.
-        if (mCustomTypeFace != null) {
-            title.setTypeface(mCustomTypeFace);
-            description.setTypeface(mCustomTypeFace);
+        if(!slideItem.isTitleImage) {
+            layout = (LinearLayout) View.inflate(mContext, R.layout.swipeselector_content_item_text, null);
+
+            TextView title = (TextView) layout.findViewById(R.id.swipeselector_content_title);
+            TextView description = (TextView) layout.findViewById(R.id.swipeselector_content_description);
+
+            title.setText(slideItem.title);
+            description.setText(slideItem.description);
+
+            // We shouldn't get here if the typeface didn't exist.
+            // But just in case, because we're paranoid.
+            if (mCustomTypeFace != null) {
+                title.setTypeface(mCustomTypeFace);
+                description.setTypeface(mCustomTypeFace);
+            }
+
+            if (mTitleTextAppearance != -1) {
+                setTextAppearanceCompat(title, mTitleTextAppearance);
+            }
+
+            if (mDescriptionTextAppearance != -1) {
+                setTextAppearanceCompat(description, mDescriptionTextAppearance);
+            }
+
+            if (mDescriptionGravity != -1) {
+                description.setGravity(mDescriptionGravity);
+            }
+        } else {
+            layout = (LinearLayout) View.inflate(mContext, R.layout.swipeselector_content_item_image, null);
+
+            ImageView title = (ImageView) layout.findViewById(R.id.swipeselector_content_image);
+
+            title.setImageDrawable(slideItem.image);
+            title.setContentDescription(slideItem.description);
         }
 
-        if (mTitleTextAppearance != -1) {
-            setTextAppearanceCompat(title, mTitleTextAppearance);
-        }
-
-        if (mDescriptionTextAppearance != -1) {
-            setTextAppearanceCompat(description, mDescriptionTextAppearance);
-        }
-
-        if (mDescriptionGravity != -1) {
-            description.setGravity(mDescriptionGravity);
-        }
 
         layout.setPadding(mContentLeftPadding,
                 mSweetSixteen,
