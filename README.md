@@ -128,10 +128,6 @@ Send me a pull request with modified README.md or contact me at iiro.krankka@gma
 
 Feel free to create issues / pull requests.
 
-## Known issues
-
-* Doesn't hold state on orientation change properly.
-
 ## License
 
 ```
