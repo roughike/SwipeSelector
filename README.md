@@ -64,7 +64,7 @@ swipeSelector.setItems(
 SwipeItem selectedItem = swipeSelector.getSelectedItem();
 
 // The value is the first argument provided when creating the SwipeItem.
-int value = (int) selectedItem.value;
+int value = (Integer) selectedItem.value;
 
 // for example
 if (value == 0) {
