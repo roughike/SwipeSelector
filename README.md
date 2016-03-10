@@ -64,7 +64,7 @@ swipeSelector.setItems(
 SwipeItem selectedItem = swipeSelector.getSelectedItem();
 
 // The value is the first argument provided when creating the SwipeItem.
-int value = selectedItem.value;
+int value = (Integer) selectedItem.value;
 
 // for example
 if (value == 0) {
@@ -127,10 +127,6 @@ Send me a pull request with modified README.md or contact me at iiro.krankka@gma
 ## Contributions
 
 Feel free to create issues / pull requests.
-
-## Known issues
-
-* Doesn't hold state on orientation change properly.
 
 ## License
 
