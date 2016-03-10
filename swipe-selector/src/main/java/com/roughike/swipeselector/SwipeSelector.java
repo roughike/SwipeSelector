@@ -187,19 +187,19 @@ public class SwipeSelector extends FrameLayout {
         dispatchThawSelfOnly(container);
     }
 
-    public void setSelectedItem(int position) {
-        setSelectedItem(position, true);
+    public void selectItemAt(int position) {
+        selectItemAt(position, true);
     }
 
-    public void setSelectedItem(int position, boolean animate) {
-        mAdapter.setSelectedItem(position, animate);
+    public void selectItemAt(int position, boolean animate) {
+        mAdapter.selectItemAt(position, animate);
     }
 
-    public void setSelectedItem(Object value) {
-        setSelectedItem(value, true);
+    public void selectItemWithValue(Object value) {
+        selectItemWithValue(value, true);
     }
 
-    public void setSelectedItem(Object value, boolean animate) {
-        mAdapter.setSelectedItem(value, animate);
+    public void selectItemWithValue(Object value, boolean animate) {
+        mAdapter.selectItemWithValue(value, animate);
     }
 }
