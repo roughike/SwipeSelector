@@ -282,17 +282,29 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     }
 
     public void selectItemAt(int position, boolean animate) {
-        if (position >= 0 && position < mItems.size()) {
-            mViewPager.setCurrentItem(position, animate);
+        if (position < 0 || position >= mItems.size()) {
+            throw new IndexOutOfBoundsException("This SwipeSelector does " +
+                    "not have an item at position " + position + ".");
         }
+
+        mViewPager.setCurrentItem(position, animate);
     }
 
     public void selectItemWithValue(Object value, boolean animate) {
+        boolean itemExists = false;
+
         for (int i = 0; i < mItems.size(); i++) {
             if (mItems.get(i).value.equals(value)) {
                 mViewPager.setCurrentItem(i, animate);
+                itemExists = true;
                 break;
             }
+        }
+
+        if (!itemExists) {
+            throw new IllegalArgumentException("This SwipeSelector " +
+                    "does not have an item with the given value "
+                    + value.toString() + ".");
         }
     }
 
