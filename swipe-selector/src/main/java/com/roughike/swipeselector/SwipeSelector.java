@@ -187,4 +187,12 @@ public class SwipeSelector extends FrameLayout {
     protected void dispatchRestoreInstanceState(SparseArray<Parcelable> container) {
         dispatchThawSelfOnly(container);
     }
+
+    public void setSelectedItem(int position) {
+        mAdapter.setSelectedItem(position);
+    }
+
+    public void setSelectedItem(SwipeItem item) {
+        mAdapter.setSelectedItem(item);
+    }
 }

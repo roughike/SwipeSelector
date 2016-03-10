@@ -281,6 +281,21 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         return mItems.get(mCurrentPosition);
     }
 
+    public void setSelectedItem(int position) {
+        if (position >= 0 && position < mItems.size()) {
+            mViewPager.setCurrentItem(position, true);
+        }
+    }
+
+    public void setSelectedItem(SwipeItem item) {
+        for (int i = 0; i < mItems.size(); i++) {
+            if (mItems.get(i).equals(item)) {
+                mViewPager.setCurrentItem(i, true);
+                break;
+            }
+        }
+    }
+
     protected Bundle onSaveInstanceState() {
         Bundle bundle = new Bundle();
         bundle.putInt(STATE_CURRENT_POSITION, mCurrentPosition);
