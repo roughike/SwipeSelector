@@ -281,6 +281,21 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         return mItems.get(mCurrentPosition);
     }
 
+    public void setSelectedItem(int position) {
+        if (position >= 0 && position < mItems.size()) {
+            mViewPager.setCurrentItem(position, true);
+        }
+    }
+
+    public void setSelectedItem(SwipeItem item) {
+        for (int i = 0; i < mItems.size(); i++) {
+            if (mItems.get(i).equals(item)) {
+                mViewPager.setCurrentItem(i, true);
+                break;
+            }
+        }
+    }
+
     protected Bundle onSaveInstanceState() {
         Bundle bundle = new Bundle();
         bundle.putInt(STATE_CURRENT_POSITION, mCurrentPosition);
@@ -303,7 +318,12 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         SwipeItem slideItem = mItems.get(position);
         title.setText(slideItem.title);
-        description.setText(slideItem.description);
+        if (slideItem.description == null) {
+            description.setVisibility(View.GONE);
+        } else {
+            description.setVisibility(View.VISIBLE);
+            description.setText(slideItem.description);
+        }
 
         // We shouldn't get here if the typeface didn't exist.
         // But just in case, because we're paranoid.
