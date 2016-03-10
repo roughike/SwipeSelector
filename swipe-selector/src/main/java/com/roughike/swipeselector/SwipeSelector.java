@@ -160,6 +160,72 @@ public class SwipeSelector extends FrameLayout {
         return mAdapter.getSelectedItem();
     }
 
+    /**
+     * Select an item at the specified position and animate the change.
+     *
+     * @param position the position to select.
+     */
+    public void selectItemAt(int position) {
+        selectItemAt(position, true);
+    }
+
+    /**
+     * Select an item at the specified position.
+     *
+     * @param position the position to select.
+     * @param animate should the change be animated or not.
+     */
+    public void selectItemAt(int position, boolean animate) {
+        mAdapter.selectItemAt(position, animate);
+    }
+
+    /**
+     * Select an item that has the specified value. The value was given
+     * to the {@link SwipeItem} when constructing it.
+     *
+     * For example, an item constructed like this:
+     *
+     * {@code
+     * new SwipeItem(1, "Example title", "Example description");
+     * }
+     *
+     * would have the value "1" (without the quote marks). Then you would
+     * select that item by using something like this:
+     *
+     * {@code
+     * swipeSelector.selectItemWithValue(1);
+     * }
+     *
+     * @param value the value of the item to select.
+     */
+    public void selectItemWithValue(Object value) {
+        selectItemWithValue(value, true);
+    }
+
+    /**
+     * Select an item that has the specified value. The value was given
+     * to the {@link SwipeItem} when constructing it.
+     *
+     * For example, an item constructed like this:
+     *
+     * {@code
+     * new SwipeItem(1, "Example title", "Example description");
+     * }
+     *
+     * would have the value "1" (without the quote marks). Then you would
+     * select that item by using something like this:
+     *
+     * {@code
+     * swipeSelector.selectItemWithValue(1, true);
+     * }
+     *
+     * @param value the value of the item to select.
+     * @param animate should the change be animated or not.
+     */
+    public void selectItemWithValue(Object value, boolean animate) {
+        mAdapter.selectItemWithValue(value, animate);
+    }
+
     @Override
     public Parcelable onSaveInstanceState() {
         Bundle bundle = mAdapter.onSaveInstanceState();

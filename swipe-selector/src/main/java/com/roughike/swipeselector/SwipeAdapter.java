@@ -281,6 +281,33 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         return mItems.get(mCurrentPosition);
     }
 
+    public void selectItemAt(int position, boolean animate) {
+        if (position < 0 || position >= mItems.size()) {
+            throw new IndexOutOfBoundsException("This SwipeSelector does " +
+                    "not have an item at position " + position + ".");
+        }
+
+        mViewPager.setCurrentItem(position, animate);
+    }
+
+    public void selectItemWithValue(Object value, boolean animate) {
+        boolean itemExists = false;
+
+        for (int i = 0; i < mItems.size(); i++) {
+            if (mItems.get(i).value.equals(value)) {
+                mViewPager.setCurrentItem(i, animate);
+                itemExists = true;
+                break;
+            }
+        }
+
+        if (!itemExists) {
+            throw new IllegalArgumentException("This SwipeSelector " +
+                    "does not have an item with the given value "
+                    + value.toString() + ".");
+        }
+    }
+
     protected Bundle onSaveInstanceState() {
         Bundle bundle = new Bundle();
         bundle.putInt(STATE_CURRENT_POSITION, mCurrentPosition);
@@ -303,7 +330,13 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         SwipeItem slideItem = mItems.get(position);
         title.setText(slideItem.title);
-        description.setText(slideItem.description);
+
+        if (slideItem.description == null) {
+            description.setVisibility(View.GONE);
+        } else {
+            description.setVisibility(View.VISIBLE);
+            description.setText(slideItem.description);
+        }
 
         // We shouldn't get here if the typeface didn't exist.
         // But just in case, because we're paranoid.
