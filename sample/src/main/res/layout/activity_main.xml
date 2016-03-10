@@ -16,7 +16,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
-            android:text="Example Pizza"
+            android:text="@string/pizza"
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <TextView
@@ -25,7 +25,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Mamma mia! Now you can order Example Pizzas delicious pizzas also by mobile.\n\nChoose a size, toppings and delivery method and you're good to go!"
+            android:text="@string/pizza_order"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <View
@@ -79,7 +79,7 @@
             android:layout_margin="16dp"
             android:background="@color/colorAccent"
             android:textColor="#FFFFFF"
-            android:text="I'm hungry, make me some pizza!"/>
+            android:text="@string/pizza_make"/>
 
     </LinearLayout>
 
