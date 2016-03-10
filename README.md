@@ -18,7 +18,7 @@ SwipeSelector supports API levels all the way down to 8 (Android Froyo).
 **Gradle:**
 
 ```groovy
-compile 'com.roughike:swipe-selector:1.0.5'
+compile 'com.roughike:swipe-selector:1.0.6'
 ```
 
 **Maven:**
@@ -26,7 +26,7 @@ compile 'com.roughike:swipe-selector:1.0.5'
 <dependency>
   <groupId>com.roughike</groupId>
   <artifactId>swipe-selector</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
   <type>pom</type>
 </dependency>
 ```
