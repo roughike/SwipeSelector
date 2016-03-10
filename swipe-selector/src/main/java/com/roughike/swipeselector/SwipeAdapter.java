@@ -318,7 +318,12 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         SwipeItem slideItem = mItems.get(position);
         title.setText(slideItem.title);
-        description.setText(slideItem.description);
+        if (slideItem.description == null) {
+            description.setVisibility(View.GONE);
+        } else {
+            description.setVisibility(View.VISIBLE);
+            description.setText(slideItem.description);
+        }
 
         // We shouldn't get here if the typeface didn't exist.
         // But just in case, because we're paranoid.
