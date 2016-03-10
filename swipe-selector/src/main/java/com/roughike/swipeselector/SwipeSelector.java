@@ -195,7 +195,11 @@ public class SwipeSelector extends FrameLayout {
         mAdapter.setSelectedItem(position, animate);
     }
 
-    public void setSelectedItem(SwipeItem item) {
-        mAdapter.setSelectedItem(item);
+    public void setSelectedItem(Object value) {
+        setSelectedItem(value, true);
+    }
+
+    public void setSelectedItem(Object value, boolean animate) {
+        mAdapter.setSelectedItem(value, animate);
     }
 }
