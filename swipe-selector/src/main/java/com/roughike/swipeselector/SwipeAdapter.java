@@ -322,6 +322,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         if (slideItem.description == null) {
             description.setVisibility(View.GONE);
         } else {
+            description.setVisibility(View.VISIBLE);
             description.setText(slideItem.description);
         }
 
