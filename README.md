@@ -122,6 +122,8 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
 
 ## Apps using SwipeSelector
 
+  * [ScoreIt - Score Keeper](https://play.google.com/store/apps/details?id=com.sbgapps.scoreit) : An application to keep track of score.
+
 Send me a pull request with modified README.md to get a shoutout!
 
 ## Contributions
