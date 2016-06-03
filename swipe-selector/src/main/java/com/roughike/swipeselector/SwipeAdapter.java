@@ -1,9 +1,13 @@
 package com.roughike.swipeselector;
 
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -99,9 +103,29 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         mLeftButton = leftButton;
         mLeftButton.setImageResource(leftButtonResource);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mLeftButton.getDrawable().setAutoMirrored(true);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Configuration config = mContext.getResources().getConfiguration();
+            if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                mLeftButton.setImageDrawable(flip(leftButtonResource));
+            }
+        } else {
+            // Not supported
+        }
 
         mRightButton = rightButton;
         mRightButton.setImageResource(rightButtonResource);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mRightButton.getDrawable().setAutoMirrored(true);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Configuration config = mContext.getResources().getConfiguration();
+            if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                mRightButton.setImageDrawable(flip(rightButtonResource));
+            }
+        } else {
+            // Not supported
+        }
 
         // Calculate paddings for the content so the left and right buttons
         // don't overlap.
@@ -241,6 +265,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     /**
      * Protected methods used by SwipeSelector
      */
+
     protected void setOnItemSelectedListener(OnSwipeItemSelectedListener listener) {
         mOnItemSelectedListener = listener;
     }
@@ -526,5 +551,13 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         } else {
             button.setAlpha((int) (alpha * 255));
         }
+    }
+
+    private BitmapDrawable flip(int buttonRes) {
+        Matrix m = new Matrix();
+        m.preScale(-1, 1);
+        Bitmap src = BitmapFactory.decodeResource(mContext.getResources(), buttonRes);
+        Bitmap dst = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), m, false);
+        return new BitmapDrawable(mContext.getResources(), dst);
     }
 }
