@@ -1,9 +1,3 @@
-package com.roughike.swipeselector;
-
-import org.junit.Test;
-
-import static org.junit.Assert.*;
-
 /*
  * SwipeSelector library for Android
  * Copyright (c) 2016 Iiro Krankka (http://github.com/roughike).
@@ -20,6 +14,12 @@ import static org.junit.Assert.*;
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
+package com.roughike.swipeselector;
+
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
