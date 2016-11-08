@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="swipeselector_color_indicator_active">#398DE3</color>
+    <color name="swipeselector_color_indicator_inactive">#DDDDDD</color>
+</resources>

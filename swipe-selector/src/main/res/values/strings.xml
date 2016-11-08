@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SwipeSelector</string>
+    <string name="move_left">Move left</string>
+    <string name="move_right">Move right</string>
+</resources>
