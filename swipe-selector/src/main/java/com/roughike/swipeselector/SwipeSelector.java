@@ -194,13 +194,13 @@ public class SwipeSelector extends FrameLayout {
      * select that item by using something like this:
      *
      * {@code
-     * swipeSelector.selectItemWithValue(1);
+     * swipeSelector.selectItemWithId(1);
      * }
      *
-     * @param value the value of the item to select.
+     * @param id the value of the item to select.
      */
-    public void selectItemWithValue(Object value) {
-        selectItemWithValue(value, true);
+    public void selectItemWithValue(int id) {
+        selectItemWithValue(id, true);
     }
 
     /**
@@ -217,14 +217,14 @@ public class SwipeSelector extends FrameLayout {
      * select that item by using something like this:
      *
      * {@code
-     * swipeSelector.selectItemWithValue(1, true);
+     * swipeSelector.selectItemWithId(1, true);
      * }
      *
-     * @param value the value of the item to select.
+     * @param id the id of the item to select.
      * @param animate should the change be animated or not.
      */
-    public void selectItemWithValue(Object value, boolean animate) {
-        mAdapter.selectItemWithValue(value, animate);
+    public void selectItemWithValue(int id, boolean animate) {
+        mAdapter.selectItemWithId(id, animate);
     }
 
     @Override

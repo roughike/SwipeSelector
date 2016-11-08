@@ -81,20 +81,20 @@ public class MainActivity extends AppCompatActivity {
 
                 String toastMessage = "";
 
-                if ((Integer) selectedSize.value != -1) {
-                    toastMessage += "Size: " + selectedSize.title;
+                if (selectedSize.getId() != -1) {
+                    toastMessage += "Size: " + selectedSize.getTitle();
                 } else {
                     toastMessage += "No size selected.";
                 }
 
-                if ((Integer) selectedToppings.value != -1) {
-                    toastMessage += "\nToppings: " + selectedToppings.title;
+                if (selectedToppings.getId() != -1) {
+                    toastMessage += "\nToppings: " + selectedToppings.getTitle();
                 } else {
                     toastMessage += "\nNo toppings selected.";
                 }
 
-                if ((Integer) selectedDelivery.value != -1) {
-                    toastMessage += "\nDelivery: " + selectedDelivery.title;
+                if (selectedDelivery.getId() != -1) {
+                    toastMessage += "\nDelivery: " + selectedDelivery.getTitle();
                 } else {
                     toastMessage += "\nNo delivery method selected.";
                 }
