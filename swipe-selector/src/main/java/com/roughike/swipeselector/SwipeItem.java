@@ -21,24 +21,42 @@ public class SwipeItem {
     private String title;
     private String description;
 
+    public SwipeItem() {
+    }
+
     /**
-     * Constructor for creating a new item for the {@link SwipeSelector}.
+     * Set the id for this SwipeItem.
      *
      * @param id The unique id for this item, which is used for identifying which
      *           item the user has selected in this SwipeSelector.
-     * @param title A short descriptive title for this item, such as "Pizza".
-     * @param description Longer explanation related to the title, such as
-     * "Pizzas are healthy, because pizza sauces contain tomato. And tomatoes
-     * are healthy, just ask anyone."
      */
-    public SwipeItem(int id, String title, String description) {
+    void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * Set the title for this SwipeItem.
+     *
+     * @param title A short descriptive title for this item, such as "Pizza".
+     */
+    void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * Set the description for this SwipeItem.
+     *
+     * @param description Longer explanation related to the title, such as
+     *                    "Pizzas are healthy, because pizza sauces contain tomato. And tomatoes
+     *                    are healthy, just ask anyone."
+     */
+    void setDescription(String description) {
         this.description = description;
     }
 
     /**
      * Gets the id for this SwipeItem.
+     *
      * @return
      */
     public int getId() {
@@ -48,6 +66,7 @@ public class SwipeItem {
     /**
      * Gets the title from a string resource (if available), or straight
      * from the "title" field.
+     *
      * @return the title for this SwipeItem.
      */
     public String getTitle() {
@@ -57,6 +76,7 @@ public class SwipeItem {
     /**
      * Gets the description from a string resource (if available), or straight
      * from the "description" field.
+     *
      * @return the description for this SwipeItem.
      */
     public String getDescription() {

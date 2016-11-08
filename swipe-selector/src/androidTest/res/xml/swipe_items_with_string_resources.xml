@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swipeitems>
+    <item
+        id="@+id/item_pizza"
+        title="@string/pizza_title"
+        description="@string/pizza_description" />
+    <item
+        id="@+id/item_burger"
+        title="@string/burger_title"
+        description="@string/burger_description" />
+    <item
+        id="@+id/item_sushi"
+        title="@string/sushi_title"
+        description="@string/sushi_description" />
+</swipeitems>
