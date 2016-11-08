@@ -68,47 +68,44 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     private ArrayList<SwipeItem> mItems;
     private int mCurrentPosition;
 
-    private SwipeAdapter(ViewPager viewPager, ViewGroup indicatorContainer, int indicatorSize, int indicatorMargin,
-                         int inActiveIndicatorColor, int activeIndicatorColor, int leftButtonResource, int rightButtonResource,
-                         ImageView leftButton, ImageView rightButton, String customFontPath, int titleTextAppearance, int descriptionTextAppearance,
-                         int descriptionGravity) {
-        mContext = viewPager.getContext();
+    private SwipeAdapter(Builder builder) {
+        mContext = builder.viewPager.getContext();
 
-        mViewPager = viewPager;
+        mViewPager = builder.viewPager;
         mViewPager.addOnPageChangeListener(this);
 
-        mIndicatorContainer = indicatorContainer;
-        mCircleParams = new LinearLayout.LayoutParams(indicatorSize, indicatorSize);
-        mCircleParams.leftMargin = indicatorMargin;
+        mIndicatorContainer = builder.indicatorContainer;
+        mCircleParams = new LinearLayout.LayoutParams(builder.indicatorSize, builder.indicatorSize);
+        mCircleParams.leftMargin = builder.indicatorMargin;
 
         mInActiveCircleDrawable = Indicator.newOne(
-                indicatorSize, inActiveIndicatorColor);
+                builder.indicatorSize, builder.inActiveIndicatorColor);
         mActiveCircleDrawable = Indicator.newOne(
-                indicatorSize, activeIndicatorColor);
+                builder.indicatorSize, builder.activeIndicatorColor);
 
-        if (customFontPath != null &&
-                ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && !customFontPath.isEmpty())
-                        || customFontPath.length() > 0)) {
+        if (builder.customFontPath != null &&
+                ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && !builder.customFontPath.isEmpty())
+                        || builder.customFontPath.length() > 0)) {
             mCustomTypeFace = Typeface.createFromAsset(mContext.getAssets(),
-                    customFontPath);
+                    builder.customFontPath);
         }
 
-        mTitleTextAppearance = titleTextAppearance;
-        mDescriptionTextAppearance = descriptionTextAppearance;
-        mDescriptionGravity = getGravity(descriptionGravity);
+        mTitleTextAppearance = builder.titleTextAppearance;
+        mDescriptionTextAppearance = builder.descriptionTextAppearance;
+        mDescriptionGravity = getGravity(builder.descriptionGravity);
 
-        mLeftButton = leftButton;
-        mLeftButton.setImageResource(leftButtonResource);
+        mLeftButton = builder.leftButton;
+        mLeftButton.setImageResource(builder.leftButtonResource);
 
-        mRightButton = rightButton;
-        mRightButton.setImageResource(rightButtonResource);
+        mRightButton = builder.rightButton;
+        mRightButton.setImageResource(builder.rightButtonResource);
 
         // Calculate paddings for the content so the left and right buttons
         // don't overlap.
         mSweetSixteen = (int) PixelUtils.dpToPixel(mContext, 16);
-        mContentLeftPadding = ContextCompat.getDrawable(mContext, leftButtonResource)
+        mContentLeftPadding = ContextCompat.getDrawable(mContext, builder.leftButtonResource)
                 .getIntrinsicWidth() + mSweetSixteen;
-        mContentRightPadding = ContextCompat.getDrawable(mContext, rightButtonResource)
+        mContentRightPadding = ContextCompat.getDrawable(mContext, builder.rightButtonResource)
                 .getIntrinsicWidth() + mSweetSixteen;
 
         mLeftButton.setOnClickListener(this);
@@ -221,20 +218,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         }
 
         protected SwipeAdapter build() {
-            return new SwipeAdapter(viewPager,
-                    indicatorContainer,
-                    indicatorSize,
-                    indicatorMargin,
-                    inActiveIndicatorColor,
-                    activeIndicatorColor,
-                    leftButtonResource,
-                    rightButtonResource,
-                    leftButton,
-                    rightButton,
-                    customFontPath,
-                    titleTextAppearance,
-                    descriptionTextAppearance,
-                    descriptionGravity);
+            return new SwipeAdapter(this);
         }
     }
 
