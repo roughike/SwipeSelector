@@ -1,7 +1,3 @@
-package com.roughike.swipeselector;
-
-import android.support.annotation.StringRes;
-
 /*
  * SwipeSelector library for Android
  * Copyright (c) 2016 Iiro Krankka (http://github.com/roughike).
@@ -18,6 +14,11 @@ import android.support.annotation.StringRes;
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
+package com.roughike.swipeselector;
+
+import android.support.annotation.StringRes;
+
 public class SwipeItem {
     /**
      * This boolean is checked when the SwipeAdapters

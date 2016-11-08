@@ -1,9 +1,3 @@
-package com.roughike.swipeselector;
-
-import android.content.Context;
-import android.content.res.Resources;
-import android.util.DisplayMetrics;
-
 /*
  * SwipeSelector library for Android
  * Copyright (c) 2016 Iiro Krankka (http://github.com/roughike).
@@ -20,6 +14,13 @@ import android.util.DisplayMetrics;
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
+package com.roughike.swipeselector;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+
 class PixelUtils {
     /**
      * Converts dps to pixels nicely.

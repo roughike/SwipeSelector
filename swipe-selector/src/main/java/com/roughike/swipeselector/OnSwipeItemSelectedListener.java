@@ -1,5 +1,3 @@
-package com.roughike.swipeselector;
-
 /*
  * SwipeSelector library for Android
  * Copyright (c) 2016 Iiro Krankka (http://github.com/roughike).
@@ -16,6 +14,9 @@ package com.roughike.swipeselector;
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
+package com.roughike.swipeselector;
+
 public interface OnSwipeItemSelectedListener {
     /**
      * The method being called when currently visible {@link SwipeItem} changes.

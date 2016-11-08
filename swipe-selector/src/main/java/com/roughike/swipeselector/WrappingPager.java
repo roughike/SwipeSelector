@@ -1,11 +1,3 @@
-package com.roughike.swipeselector;
-
-import android.content.Context;
-import android.support.v4.view.ViewPager;
-import android.util.AttributeSet;
-import android.view.View;
-
-
 /*
  * SwipeSelector library for Android
  * Copyright (c) 2016 Iiro Krankka (http://github.com/roughike).
@@ -22,6 +14,15 @@ import android.view.View;
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
+package com.roughike.swipeselector;
+
+import android.content.Context;
+import android.support.v4.view.ViewPager;
+import android.util.AttributeSet;
+import android.view.View;
+
+
 public class WrappingPager extends ViewPager {
     public WrappingPager(Context context) {
         super(context);

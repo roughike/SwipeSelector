@@ -1,8 +1,3 @@
-package com.roughike.swipeselector;
-
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
-
 /*
  * SwipeSelector library for Android
  * Copyright (c) 2016 Iiro Krankka (http://github.com/roughike).
@@ -19,6 +14,12 @@ import android.graphics.drawable.shapes.OvalShape;
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
+package com.roughike.swipeselector;
+
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+
 class Indicator {
     /**
      * Creates a new ShapeDrawable, in this case a circle.
