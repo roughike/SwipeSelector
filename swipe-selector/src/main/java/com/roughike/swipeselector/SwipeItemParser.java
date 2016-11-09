@@ -42,7 +42,7 @@ public class SwipeItemParser {
         swipeItems = new ArrayList<>();
     }
 
-    public List<SwipeItem> parse() {
+    public List<SwipeItem> parseItems() {
         try {
             parser.next();
             currentEventType = parser.getEventType();

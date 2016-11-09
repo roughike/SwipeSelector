@@ -24,6 +24,12 @@ public class SwipeItem {
     public SwipeItem() {
     }
 
+    public SwipeItem(int id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
+
     /**
      * Set the id for this SwipeItem.
      *

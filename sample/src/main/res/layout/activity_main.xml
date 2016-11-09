@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +39,8 @@
         <com.roughike.swipeselector.SwipeSelector
             android:id="@+id/sizeSelector"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:swipe_itemsXmlResource="@xml/items_size" />
 
         <View
             android:layout_width="match_parent"
@@ -50,7 +52,8 @@
         <com.roughike.swipeselector.SwipeSelector
             android:id="@+id/toppingSelector"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:swipe_itemsXmlResource="@xml/items_toppings" />
 
         <View
             android:layout_width="match_parent"
@@ -62,7 +65,8 @@
         <com.roughike.swipeselector.SwipeSelector
             android:id="@+id/deliverySelector"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:swipe_itemsXmlResource="@xml/items_delivery" />
 
         <View
             android:layout_width="match_parent"

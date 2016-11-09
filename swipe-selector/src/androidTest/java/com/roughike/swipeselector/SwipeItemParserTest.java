@@ -42,11 +42,11 @@ public class SwipeItemParserTest {
         hardCodedItems = new SwipeItemParser(
                 context,
                 com.roughike.swipeselector.test.R.xml.swipe_items_harcoded
-        ).parse();
+        ).parseItems();
         resourcedItems = new SwipeItemParser(
                 context,
                 com.roughike.swipeselector.test.R.xml.swipe_items_with_string_resources
-        ).parse();
+        ).parseItems();
     }
 
     @Test

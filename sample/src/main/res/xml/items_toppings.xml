@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swipeitems>
+    <item
+        id="@+id/select_a_topping"
+        title="Select a topping"
+        description="Start by swiping left." />
+    <item
+        id="@+id/toppings_emily"
+        title="Aunt Emily's"
+        description="Strawberries, potatoes and cucumber. Just what Aunt Emily found in her backyard." />
+    <item
+        id="@+id/toppings_bob"
+        title="Uncle Bob's Special"
+        description="Ranch dressing, bacon, kebab and double pepperoni. And also some lettuce, because lettuce is healthy." />
+    <item
+        id="@+id/toppings_hans"
+        title="Hans' Meat Monster"
+        description="Ham, sauerbraten, salami and bratwurst. Hans likes his meat." />
+    <item
+        id="@+id/toppings_andrei"
+        title="Andreis' Russian Style"
+        description="Whole pickles and sour cream. Prijat novo appetita!" />
+</swipeitems>

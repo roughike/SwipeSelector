@@ -32,6 +32,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.util.Arrays;
+
 
 public class SwipeSelector extends FrameLayout {
     private static final int DEFAULT_INDICATOR_SIZE = 6;
@@ -65,6 +67,7 @@ public class SwipeSelector extends FrameLayout {
         TypedArray ta = context.getTheme().obtainStyledAttributes(attrs,
                 R.styleable.SwipeSelector, defStyleAttr, defStyleRes);
 
+        int itemsXmlResource;
         int indicatorSize;
         int indicatorMargin;
         int indicatorInActiveColor;
@@ -78,6 +81,7 @@ public class SwipeSelector extends FrameLayout {
         int descriptionGravity;
 
         try {
+            itemsXmlResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_itemsXmlResource, 0);
             indicatorSize = (int) ta.getDimension(R.styleable.SwipeSelector_swipe_indicatorSize,
                     PixelUtils.dpToPixel(context, DEFAULT_INDICATOR_SIZE));
             indicatorMargin = (int) ta.getDimension(R.styleable.SwipeSelector_swipe_indicatorMargin,
@@ -128,6 +132,15 @@ public class SwipeSelector extends FrameLayout {
                 .descriptionGravity(descriptionGravity)
                 .build();
         pager.setAdapter(mAdapter);
+
+        inflateItemsFromXml(itemsXmlResource);
+    }
+
+    private void inflateItemsFromXml(int itemsXmlResource) {
+        if (itemsXmlResource != 0) {
+            SwipeItemParser parser = new SwipeItemParser(getContext(), itemsXmlResource);
+            mAdapter.setItems(parser.parseItems());
+        }
     }
 
     /**
@@ -145,7 +158,7 @@ public class SwipeSelector extends FrameLayout {
      * inside this view.
      */
     public void setItems(SwipeItem... swipeItems) {
-        mAdapter.setItems(swipeItems);
+        mAdapter.setItems(Arrays.asList(swipeItems));
     }
 
     /**

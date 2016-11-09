@@ -230,11 +230,11 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         mOnItemSelectedListener = listener;
     }
 
-    protected void setItems(SwipeItem... items) {
+    protected void setItems(List<SwipeItem> items) {
         // If there are SwipeItems constructed using String resources
         // instead of Strings, loop through all of them and get the
         // Strings.
-        mItems = Arrays.asList(items);
+        mItems = items;
         mCurrentPosition = 0;
         setActiveIndicator(0);
         notifyDataSetChanged();

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swipeitems>
+    <item
+        id="@+id/select_a_size"
+        title="Select a size"
+        description="Start by swiping left." />
+    <item
+        id="@+id/size_kids"
+        title="Kids' size"
+        description="For the small appetite. Can be shared by four toddlers." />
+    <item
+        id="@+id/size_normal"
+        title="Normal"
+        description="Our most popular size. Ideal for kids before their growth spurt." />
+    <item
+        id="@+id/size_large"
+        title="Large"
+        description="This is two times the normal size. Suits well for the hangover after a bachelor party." />
+    <item
+        id="@+id/size_huge"
+        title="Huge"
+        description="Suitable for families. Also perfect for a bigger appetite if your name happens to be Furious Pete." />
+</swipeitems>
