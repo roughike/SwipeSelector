@@ -5,9 +5,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.2.0'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -23,3 +23,23 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    appcompatVersion          = '23.2.0'
+    junitVersion              = '4.12'
+    androidTestSupportVersion = '0.5'
+    lintVersion               = '25.1.2'
+}
+
+ext.deps = [
+        appcompat  : "com.android.support:appcompat-v7:${appcompatVersion}",
+
+        // Test deps
+        junit      : "junit:junit:${junitVersion}",
+        androidTestRunner : "com.android.support.test:runner:${androidTestSupportVersion}",
+        androidTestRules  : "com.android.support.test:rules:${androidTestSupportVersion}",
+
+        // Lint
+        lintapi    : "com.android.tools.lint:lint-api:${lintVersion}",
+        lintchecks : "com.android.tools.lint:lint-checks:${lintVersion}"
+]

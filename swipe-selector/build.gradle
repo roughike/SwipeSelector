@@ -44,14 +44,18 @@ android {
     }
 }
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.2.0'
+configurations {
+    lintChecks
+}
 
-    testCompile 'junit:junit:4.12'
-    androidTestCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile deps.appcompat
+
+    testCompile deps.junit
+    androidTestCompile deps.junit
+    androidTestCompile deps.androidTestRunner
+    androidTestCompile deps.androidTestRules
 }
 
 apply plugin: 'com.github.dcendents.android-maven'
