@@ -1,4 +1,7 @@
 # SwipeSelector
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4210ba766df46ea972eb2ddcc607c93)](https://www.codacy.com/app/iiro-krankka/SwipeSelector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=roughike/SwipeSelector&amp;utm_campaign=Badge_Grade)
+
 ## Undergoing for some API changes for a 2.0 major version, see example usage in the sample module!
 
 <img src="https://raw.githubusercontent.com/roughike/SwipeSelector/master/demo_two.gif" width="278" height="492" />
