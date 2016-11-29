@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <swipeitems>
     <item
-        value="select"
-        title="Select a topping"
-        description="Start by swiping left." />
-    <item
         value="toppings_emily"
         title="Aunt Emily's"
         description="Strawberries, potatoes and cucumber. Just what Aunt Emily found in her backyard." />

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <swipeitems>
     <item
-        value="select"
-        title="Select delivery method"
-        description="Start by swiping left." />
-    <item
         value="delivery_none"
         title="No delivery"
         description="Come to our lovely restaurant and pick up the pizza yourself." />

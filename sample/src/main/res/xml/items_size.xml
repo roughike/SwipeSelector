@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <swipeitems>
     <item
-        value="select"
-        title="Select a size"
-        description="Start by swiping left." />
-    <item
         value="size_kids"
         title="Kids' size"
         description="For the small appetite. Can be shared by four toddlers." />

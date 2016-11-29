@@ -17,10 +17,8 @@
 
 package com.roughike.swipeselector;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -33,7 +31,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class SwipeSelector extends FrameLayout {
@@ -42,105 +42,116 @@ public class SwipeSelector extends FrameLayout {
     private static final String STATE_SELECTOR = "STATE_SELECTOR";
 
     private SwipeAdapter adapter;
+    private ViewPager pager;
+    private ViewGroup indicatorContainer;
+    private ImageView leftButton;
+    private ImageView rightButton;
+
+    private int itemsXmlResource;
+    private String unselectedItemTitle;
+    private String unselectedItemDescription;
 
     public SwipeSelector(Context context) {
         super(context);
-        init(context, null, 0, 0);
+        init(context, null);
     }
 
     public SwipeSelector(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs, 0, 0);
+        init(context, attrs);
     }
 
-    public SwipeSelector(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs, defStyleAttr, 0);
+    private void init(Context context, AttributeSet attrs) {
+        initializeViews(context);
+        populateAttrsAndInitAdapter(context, attrs);
+        populateItems();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public SwipeSelector(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-    private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        TypedArray ta = context.getTheme().obtainStyledAttributes(attrs,
-                R.styleable.SwipeSelector, defStyleAttr, defStyleRes);
-
-        int itemsXmlResource;
-        int indicatorSize;
-        int indicatorMargin;
-        int indicatorInActiveColor;
-        int indicatorActiveColor;
-        int leftButtonResource;
-        int rightButtonResource;
-
-        String customFontPath;
-        int titleTextAppearance;
-        int descriptionTextAppearance;
-        int descriptionGravity;
-
-        try {
-            itemsXmlResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_itemsXmlResource, 0);
-            indicatorSize = (int) ta.getDimension(R.styleable.SwipeSelector_swipe_indicatorSize,
-                    PixelUtils.dpToPixel(context, DEFAULT_INDICATOR_SIZE));
-            indicatorMargin = (int) ta.getDimension(R.styleable.SwipeSelector_swipe_indicatorMargin,
-                    PixelUtils.dpToPixel(context, DEFAULT_INDICATOR_MARGIN));
-            indicatorInActiveColor = ta.getColor(R.styleable.SwipeSelector_swipe_indicatorInActiveColor,
-                    ContextCompat.getColor(context, R.color.swipeselector_color_indicator_inactive));
-            indicatorActiveColor = ta.getColor(R.styleable.SwipeSelector_swipe_indicatorActiveColor,
-                    ContextCompat.getColor(context, R.color.swipeselector_color_indicator_active));
-
-            leftButtonResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_leftButtonResource,
-                    R.drawable.ic_action_navigation_chevron_left);
-            rightButtonResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_rightButtonResource,
-                    R.drawable.ic_action_navigation_chevron_right);
-
-            customFontPath = ta.getString(R.styleable.SwipeSelector_swipe_customFontPath);
-            titleTextAppearance = ta.getResourceId(R.styleable.SwipeSelector_swipe_titleTextAppearance,
-                    -1);
-            descriptionTextAppearance = ta.getResourceId(R.styleable.SwipeSelector_swipe_descriptionTextAppearance,
-                    -1);
-            descriptionGravity = ta.getInteger(R.styleable.SwipeSelector_swipe_descriptionGravity,
-                    -1);
-        } finally {
-            ta.recycle();
-        }
-
+    private void initializeViews(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.swipeselector_layout, this);
 
-        ViewPager pager = (ViewPager) findViewById(R.id.swipeselector_layout_swipePager);
-        ViewGroup indicatorContainer = (ViewGroup) findViewById(R.id.swipeselector_layout_circleContainer);
-        ImageView leftButton = (ImageView) findViewById(R.id.swipeselector_layout_leftButton);
-        ImageView rightButton = (ImageView) findViewById(R.id.swipeselector_layout_rightButton);
-
-        adapter = new SwipeAdapter.Builder()
-                .viewPager(pager)
-                .indicatorContainer(indicatorContainer)
-                .indicatorSize(indicatorSize)
-                .indicatorMargin(indicatorMargin)
-                .inActiveIndicatorColor(indicatorInActiveColor)
-                .activeIndicatorColor(indicatorActiveColor)
-                .leftButtonResource(leftButtonResource)
-                .rightButtonResource(rightButtonResource)
-                .leftButton(leftButton)
-                .rightButton(rightButton)
-                .customFontPath(customFontPath)
-                .titleTextAppearance(titleTextAppearance)
-                .descriptionTextAppearance(descriptionTextAppearance)
-                .descriptionGravity(descriptionGravity)
-                .build();
-        pager.setAdapter(adapter);
-
-        inflateItemsFromXml(itemsXmlResource);
+        pager = (ViewPager) findViewById(R.id.swipeselector_layout_swipePager);
+        indicatorContainer = (ViewGroup) findViewById(R.id.swipeselector_layout_circleContainer);
+        leftButton = (ImageView) findViewById(R.id.swipeselector_layout_leftButton);
+        rightButton = (ImageView) findViewById(R.id.swipeselector_layout_rightButton);
     }
 
-    private void inflateItemsFromXml(int itemsXmlResource) {
+    private void populateAttrsAndInitAdapter(Context context, AttributeSet attrs) {
+        TypedArray ta = context.getTheme().obtainStyledAttributes(attrs,
+                R.styleable.SwipeSelector, 0, 0);
+
+        try {
+            itemsXmlResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_itemsXmlResource, 0);
+            unselectedItemTitle = ta.getString(R.styleable.SwipeSelector_swipe_unselectedItemTitle);
+            unselectedItemDescription = ta.getString(R.styleable.SwipeSelector_swipe_unselectedItemDescription);
+
+            int indicatorSize = (int) ta.getDimension(R.styleable.SwipeSelector_swipe_indicatorSize,
+                    PixelUtils.dpToPixel(context, DEFAULT_INDICATOR_SIZE));
+            int indicatorMargin = (int) ta.getDimension(R.styleable.SwipeSelector_swipe_indicatorMargin,
+                    PixelUtils.dpToPixel(context, DEFAULT_INDICATOR_MARGIN));
+            int indicatorInActiveColor = ta.getColor(R.styleable.SwipeSelector_swipe_indicatorInActiveColor,
+                    ContextCompat.getColor(context, R.color.swipeselector_color_indicator_inactive));
+            int indicatorActiveColor = ta.getColor(R.styleable.SwipeSelector_swipe_indicatorActiveColor,
+                    ContextCompat.getColor(context, R.color.swipeselector_color_indicator_active));
+
+            int leftButtonResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_leftButtonResource,
+                    R.drawable.ic_action_navigation_chevron_left);
+            int rightButtonResource = ta.getResourceId(R.styleable.SwipeSelector_swipe_rightButtonResource,
+                    R.drawable.ic_action_navigation_chevron_right);
+
+            String customFontPath = ta.getString(R.styleable.SwipeSelector_swipe_customFontPath);
+            int titleTextAppearance = ta.getResourceId(R.styleable.SwipeSelector_swipe_titleTextAppearance,
+                    -1);
+            int descriptionTextAppearance = ta.getResourceId(R.styleable.SwipeSelector_swipe_descriptionTextAppearance,
+                    -1);
+            int descriptionGravity = ta.getInteger(R.styleable.SwipeSelector_swipe_descriptionGravity,
+                    -1);
+
+            adapter = new SwipeAdapter.Builder()
+                    .viewPager(pager)
+                    .indicatorContainer(indicatorContainer)
+                    .indicatorSize(indicatorSize)
+                    .indicatorMargin(indicatorMargin)
+                    .inActiveIndicatorColor(indicatorInActiveColor)
+                    .activeIndicatorColor(indicatorActiveColor)
+                    .leftButtonResource(leftButtonResource)
+                    .rightButtonResource(rightButtonResource)
+                    .leftButton(leftButton)
+                    .rightButton(rightButton)
+                    .customFontPath(customFontPath)
+                    .titleTextAppearance(titleTextAppearance)
+                    .descriptionTextAppearance(descriptionTextAppearance)
+                    .descriptionGravity(descriptionGravity)
+                    .build();
+            pager.setAdapter(adapter);
+        } finally {
+            ta.recycle();
+        }
+    }
+
+    private void populateItems() {
+        List<SwipeItem> pendingItems = new ArrayList<>();
+
+        if (unselectedItemTitle != null && unselectedItemDescription != null) {
+            SwipeItem item = new SwipeItem(
+                    SwipeItem.UNSELECTED_ITEM_VALUE,
+                    unselectedItemTitle,
+                    unselectedItemDescription
+            );
+
+            pendingItems.add(item);
+        }
+
+        inflateItemsFromXml(pendingItems, itemsXmlResource);
+    }
+
+    private void inflateItemsFromXml(List<SwipeItem> pendingItems, int itemsXmlResource) {
         if (itemsXmlResource != 0) {
             SwipeItemParser parser = new SwipeItemParser(getContext(), itemsXmlResource);
-            adapter.setItems(parser.parseItems());
+            pendingItems.addAll(parser.parseItems());
+
+            adapter.setItems(pendingItems);
         }
     }
 
@@ -160,6 +171,19 @@ public class SwipeSelector extends FrameLayout {
      */
     public void setItems(SwipeItem... swipeItems) {
         adapter.setItems(Arrays.asList(swipeItems));
+    }
+
+    /**
+     * Determine whether this SwipeSelector has a selected item, or if the currently visible
+     * item is just a unselected state item.
+     *
+     * Unselected items are specifed by the "swipe_unselectedItemTitle" and "swipe_unselectedItemDescription"
+     * attributes and created automagically for you if those attributes exist.
+     *
+     * @return true if this item is a real selected item by the user, false otherwise.
+     */
+    public boolean hasSelection() {
+        return getSelectedItem().isRealItem();
     }
 
     /**

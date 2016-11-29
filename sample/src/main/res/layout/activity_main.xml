@@ -40,7 +40,9 @@
             android:id="@+id/sizeSelector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:swipe_itemsXmlResource="@xml/items_size" />
+            app:swipe_itemsXmlResource="@xml/items_size"
+            app:swipe_unselectedItemTitle="Select a size"
+            app:swipe_unselectedItemDescription="@string/start_by_swiping_left" />
 
         <View
             android:layout_width="match_parent"
@@ -53,7 +55,9 @@
             android:id="@+id/toppingSelector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:swipe_itemsXmlResource="@xml/items_toppings" />
+            app:swipe_itemsXmlResource="@xml/items_toppings"
+            app:swipe_unselectedItemTitle="Select a topping"
+            app:swipe_unselectedItemDescription="@string/start_by_swiping_left" />
 
         <View
             android:layout_width="match_parent"
@@ -66,7 +70,9 @@
             android:id="@+id/deliverySelector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:swipe_itemsXmlResource="@xml/items_delivery" />
+            app:swipe_itemsXmlResource="@xml/items_delivery"
+            app:swipe_unselectedItemTitle="Select delivery method"
+            app:swipe_unselectedItemDescription="@string/start_by_swiping_left" />
 
         <View
             android:layout_width="match_parent"

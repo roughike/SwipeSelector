@@ -3,4 +3,5 @@
     <string name="pizza">Example Pizza</string>
     <string name="pizza_order">Mamma mia! Now you can order Example Pizzas delicious pizzas also by mobile.\n\nChoose a size, toppings and delivery method and you\'re good to go!</string>
     <string name="pizza_make">I\'m hungry, make me some pizza!</string>
+    <string name="start_by_swiping_left">Start by swiping left.</string>
 </resources>

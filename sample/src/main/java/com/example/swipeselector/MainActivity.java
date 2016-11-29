@@ -21,29 +21,28 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SwipeItem selectedSize = sizeSelector.getSelectedItem();
-                SwipeItem selectedToppings = toppingSelector.getSelectedItem();
-                SwipeItem selectedDelivery = deliverySelector.getSelectedItem();
-
                 // You would probably send these to your server for validation,
-                // like: "http://example.com/api?size=" + selectedSize.value
+                // like: "http://example.com/api?size=" + selectedSize.getValue()
                 // etc, but we'll just display a toast.
 
                 String toastMessage = "";
 
-                if (!selectedSize.getValue().equals("select")) {
+                if (sizeSelector.hasSelection()) {
+                    SwipeItem selectedSize = sizeSelector.getSelectedItem();
                     toastMessage += "Size: " + selectedSize.getTitle();
                 } else {
                     toastMessage += "No size selected.";
                 }
 
-                if (!selectedToppings.getValue().equals("select")) {
+                if (toppingSelector.hasSelection()) {
+                    SwipeItem selectedToppings = toppingSelector.getSelectedItem();
                     toastMessage += "\nToppings: " + selectedToppings.getTitle();
                 } else {
                     toastMessage += "\nNo toppings selected.";
                 }
 
-                if (!selectedDelivery.getValue().equals("select")) {
+                if (deliverySelector.hasSelection()) {
+                    SwipeItem selectedDelivery = deliverySelector.getSelectedItem();
                     toastMessage += "\nDelivery: " + selectedDelivery.getTitle();
                 } else {
                     toastMessage += "\nNo delivery method selected.";

@@ -17,6 +17,7 @@
 package com.roughike.swipeselector;
 
 public class SwipeItem {
+    static final String UNSELECTED_ITEM_VALUE = "com.roughike.swipeselector.UNSELECTED_ITEM_VALUE";
     private String value;
     private String title;
     private String description;
@@ -98,5 +99,18 @@ public class SwipeItem {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Determines if this item is a unselected state item, in other words, not a real possible
+     * selection for this SwipeSelector.
+     *
+     * Unselected items are specifed by the "swipe_unselectedItemTitle" and "swipe_unselectedItemDescription"
+     * attributes and created automagically for you if those attributes exist.
+     *
+     * @return true if this item is a real selected item by the user, false otherwise.
+     */
+    boolean isRealItem() {
+        return !UNSELECTED_ITEM_VALUE.equals(value);
     }
 }
