@@ -40,7 +40,7 @@ public class SwipeSelector extends FrameLayout {
     private static final int DEFAULT_INDICATOR_MARGIN = 8;
     private static final String STATE_SELECTOR = "STATE_SELECTOR";
 
-    private SwipeAdapter mAdapter;
+    private SwipeAdapter adapter;
 
     public SwipeSelector(Context context) {
         super(context);
@@ -115,7 +115,7 @@ public class SwipeSelector extends FrameLayout {
         ImageView leftButton = (ImageView) findViewById(R.id.swipeselector_layout_leftButton);
         ImageView rightButton = (ImageView) findViewById(R.id.swipeselector_layout_rightButton);
 
-        mAdapter = new SwipeAdapter.Builder()
+        adapter = new SwipeAdapter.Builder()
                 .viewPager(pager)
                 .indicatorContainer(indicatorContainer)
                 .indicatorSize(indicatorSize)
@@ -131,7 +131,7 @@ public class SwipeSelector extends FrameLayout {
                 .descriptionTextAppearance(descriptionTextAppearance)
                 .descriptionGravity(descriptionGravity)
                 .build();
-        pager.setAdapter(mAdapter);
+        pager.setAdapter(adapter);
 
         inflateItemsFromXml(itemsXmlResource);
     }
@@ -139,7 +139,7 @@ public class SwipeSelector extends FrameLayout {
     private void inflateItemsFromXml(int itemsXmlResource) {
         if (itemsXmlResource != 0) {
             SwipeItemParser parser = new SwipeItemParser(getContext(), itemsXmlResource);
-            mAdapter.setItems(parser.parseItems());
+            adapter.setItems(parser.parseItems());
         }
     }
 
@@ -148,7 +148,7 @@ public class SwipeSelector extends FrameLayout {
      * @param listener the listener that gets fired on item selection
      */
     public void setOnItemSelectedListener(OnSwipeItemSelectedListener listener) {
-        mAdapter.setOnItemSelectedListener(listener);
+        adapter.setOnItemSelectedListener(listener);
     }
 
     /**
@@ -158,20 +158,20 @@ public class SwipeSelector extends FrameLayout {
      * inside this view.
      */
     public void setItems(SwipeItem... swipeItems) {
-        mAdapter.setItems(Arrays.asList(swipeItems));
+        adapter.setItems(Arrays.asList(swipeItems));
     }
 
     /**
      * @return the selected slides' SwipeItem.
      */
     public SwipeItem getSelectedItem() {
-        if (mAdapter.getCount() == 0) {
+        if (adapter.getCount() == 0) {
             throw new UnsupportedOperationException("The SwipeSelector " +
                     "doesn't have any items! Use the setItems() method " +
                     "for setting the items before calling getSelectedItem().");
         }
 
-        return mAdapter.getSelectedItem();
+        return adapter.getSelectedItem();
     }
 
     /**
@@ -190,7 +190,7 @@ public class SwipeSelector extends FrameLayout {
      * @param animate should the change be animated or not.
      */
     public void selectItemAt(int position, boolean animate) {
-        mAdapter.selectItemAt(position, animate);
+        adapter.selectItemAt(position, animate);
     }
 
     /**
@@ -237,12 +237,12 @@ public class SwipeSelector extends FrameLayout {
      * @param animate should the change be animated or not.
      */
     public void selectItemWithValue(int id, boolean animate) {
-        mAdapter.selectItemWithId(id, animate);
+        adapter.selectItemWithId(id, animate);
     }
 
     @Override
     public Parcelable onSaveInstanceState() {
-        Bundle bundle = mAdapter.onSaveInstanceState();
+        Bundle bundle = adapter.onSaveInstanceState();
         bundle.putParcelable(STATE_SELECTOR, super.onSaveInstanceState());
         return bundle;
     }
@@ -251,7 +251,7 @@ public class SwipeSelector extends FrameLayout {
     public void onRestoreInstanceState(Parcelable state) {
         if (state instanceof Bundle) {//Shouldn't be needed, just in case
             Bundle bundle = (Bundle) state;
-            mAdapter.onRestoreInstanceState(bundle);
+            adapter.onRestoreInstanceState(bundle);
             state = bundle.getParcelable(STATE_SELECTOR);
         }
         super.onRestoreInstanceState(state);

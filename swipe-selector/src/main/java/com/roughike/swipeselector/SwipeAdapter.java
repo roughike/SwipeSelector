@@ -34,7 +34,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Arrays;
 import java.util.List;
 
 class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPager.OnPageChangeListener {
@@ -44,88 +43,81 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     // For the left and right buttons when they're not visible
     private static final String TAG_HIDDEN = "TAG_HIDDEN";
 
-    private final Context mContext;
+    private final Context context;
 
-    private final ViewPager mViewPager;
-    private final ViewGroup mIndicatorContainer;
+    private final ViewPager viewPager;
+    private final ViewGroup indicatorContainer;
 
-    private final LinearLayout.LayoutParams mCircleParams;
-    private final ShapeDrawable mInActiveCircleDrawable;
-    private final ShapeDrawable mActiveCircleDrawable;
+    private final LinearLayout.LayoutParams circleParams;
+    private final ShapeDrawable inActiveCircleDrawable;
+    private final ShapeDrawable activeCircleDrawable;
 
-    private Typeface mCustomTypeFace;
-    private final int mTitleTextAppearance;
-    private final int mDescriptionTextAppearance;
-    private final int mDescriptionGravity;
+    private Typeface customTypeFace;
+    private final int titleTextAppearance;
+    private final int descriptionTextAppearance;
+    private final int descriptionGravity;
 
-    private final ImageView mLeftButton;
-    private final ImageView mRightButton;
+    private final ImageView leftButton;
+    private final ImageView rightButton;
 
-    private final int mSweetSixteen;
-    private final int mContentLeftPadding;
-    private final int mContentRightPadding;
+    private final int sixteenDp;
+    private final int contentLeftPadding;
+    private final int contentRightPadding;
 
-    private OnSwipeItemSelectedListener mOnItemSelectedListener;
-    private List<SwipeItem> mItems;
-    private int mCurrentPosition;
+    private OnSwipeItemSelectedListener onItemSelectedListener;
+    private List<SwipeItem> items;
+    private int currentPosition;
 
     private SwipeAdapter(Builder builder) {
-        mContext = builder.viewPager.getContext();
+        context = builder.viewPager.getContext();
 
-        mViewPager = builder.viewPager;
-        mViewPager.addOnPageChangeListener(this);
+        viewPager = builder.viewPager;
+        viewPager.addOnPageChangeListener(this);
 
-        mIndicatorContainer = builder.indicatorContainer;
-        mCircleParams = new LinearLayout.LayoutParams(builder.indicatorSize, builder.indicatorSize);
-        mCircleParams.leftMargin = builder.indicatorMargin;
+        indicatorContainer = builder.indicatorContainer;
+        circleParams = new LinearLayout.LayoutParams(builder.indicatorSize, builder.indicatorSize);
+        circleParams.leftMargin = builder.indicatorMargin;
 
-        mInActiveCircleDrawable = Indicator.newOne(
+        inActiveCircleDrawable = Indicator.newOne(
                 builder.indicatorSize, builder.inActiveIndicatorColor);
-        mActiveCircleDrawable = Indicator.newOne(
+        activeCircleDrawable = Indicator.newOne(
                 builder.indicatorSize, builder.activeIndicatorColor);
 
         if (builder.customFontPath != null &&
                 ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && !builder.customFontPath.isEmpty())
                         || builder.customFontPath.length() > 0)) {
-            mCustomTypeFace = Typeface.createFromAsset(mContext.getAssets(),
+            customTypeFace = Typeface.createFromAsset(context.getAssets(),
                     builder.customFontPath);
         }
 
-        mTitleTextAppearance = builder.titleTextAppearance;
-        mDescriptionTextAppearance = builder.descriptionTextAppearance;
-        mDescriptionGravity = getGravity(builder.descriptionGravity);
+        titleTextAppearance = builder.titleTextAppearance;
+        descriptionTextAppearance = builder.descriptionTextAppearance;
+        descriptionGravity = getGravity(builder.descriptionGravity);
 
-        mLeftButton = builder.leftButton;
-        mLeftButton.setImageResource(builder.leftButtonResource);
+        leftButton = builder.leftButton;
+        leftButton.setImageResource(builder.leftButtonResource);
 
-        mRightButton = builder.rightButton;
-        mRightButton.setImageResource(builder.rightButtonResource);
+        rightButton = builder.rightButton;
+        rightButton.setImageResource(builder.rightButtonResource);
 
         // Calculate paddings for the content so the left and right buttons
         // don't overlap.
-        mSweetSixteen = (int) PixelUtils.dpToPixel(mContext, 16);
-        mContentLeftPadding = ContextCompat.getDrawable(mContext, builder.leftButtonResource)
-                .getIntrinsicWidth() + mSweetSixteen;
-        mContentRightPadding = ContextCompat.getDrawable(mContext, builder.rightButtonResource)
-                .getIntrinsicWidth() + mSweetSixteen;
+        sixteenDp = (int) PixelUtils.dpToPixel(context, 16);
+        contentLeftPadding = ContextCompat.getDrawable(context, builder.leftButtonResource)
+                .getIntrinsicWidth() + sixteenDp;
+        contentRightPadding = ContextCompat.getDrawable(context, builder.rightButtonResource)
+                .getIntrinsicWidth() + sixteenDp;
 
-        mLeftButton.setOnClickListener(this);
-        mRightButton.setOnClickListener(this);
+        leftButton.setOnClickListener(this);
+        rightButton.setOnClickListener(this);
 
-        mLeftButton.setTag(TAG_HIDDEN);
-        mLeftButton.setClickable(false);
+        leftButton.setTag(TAG_HIDDEN);
+        leftButton.setClickable(false);
 
-        setAlpha(0.0f, mLeftButton);
+        setAlpha(0.0f, leftButton);
     }
 
-    /**
-     * Using the Java Builder Pattern here, because the SwipeSelector class was getting
-     * messy and that's where most will look at. This class is protected, and contains no
-     * methods that the users can use, so it's OK for this to look like absolute vomit.
-     * <p/>
-     * At least that's my opinion. But my opinions are always right.
-     */
-    protected static class Builder {
+    static class Builder {
         private ViewPager viewPager;
         private ViewGroup indicatorContainer;
 
@@ -226,39 +218,39 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
     /**
      * Protected methods used by SwipeSelector
      */
-    protected void setOnItemSelectedListener(OnSwipeItemSelectedListener listener) {
-        mOnItemSelectedListener = listener;
+    void setOnItemSelectedListener(OnSwipeItemSelectedListener listener) {
+        onItemSelectedListener = listener;
     }
 
-    protected void setItems(List<SwipeItem> items) {
+    void setItems(List<SwipeItem> items) {
         // If there are SwipeItems constructed using String resources
         // instead of Strings, loop through all of them and get the
         // Strings.
-        mItems = items;
-        mCurrentPosition = 0;
+        this.items = items;
+        currentPosition = 0;
         setActiveIndicator(0);
         notifyDataSetChanged();
     }
 
-    protected SwipeItem getSelectedItem() {
-        return mItems.get(mCurrentPosition);
+    SwipeItem getSelectedItem() {
+        return items.get(currentPosition);
     }
 
-    protected void selectItemAt(int position, boolean animate) {
-        if (position < 0 || position >= mItems.size()) {
+    void selectItemAt(int position, boolean animate) {
+        if (position < 0 || position >= items.size()) {
             throw new IndexOutOfBoundsException("This SwipeSelector does " +
                     "not have an item at position " + position + ".");
         }
 
-        mViewPager.setCurrentItem(position, animate);
+        viewPager.setCurrentItem(position, animate);
     }
 
-    protected void selectItemWithId(@IdRes int id, boolean animate) {
+    void selectItemWithId(@IdRes int id, boolean animate) {
         boolean itemExists = false;
 
-        for (int i = 0; i < mItems.size(); i++) {
-            if (mItems.get(i).getId() == id) {
-                mViewPager.setCurrentItem(i, animate);
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId() == id) {
+                viewPager.setCurrentItem(i, animate);
                 itemExists = true;
                 break;
             }
@@ -270,14 +262,14 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         }
     }
 
-    protected Bundle onSaveInstanceState() {
+    Bundle onSaveInstanceState() {
         Bundle bundle = new Bundle();
-        bundle.putInt(STATE_CURRENT_POSITION, mCurrentPosition);
+        bundle.putInt(STATE_CURRENT_POSITION, currentPosition);
         return bundle;
     }
 
-    protected void onRestoreInstanceState(Bundle state) {
-        mViewPager.setCurrentItem(state.getInt(STATE_CURRENT_POSITION), false);
+    void onRestoreInstanceState(Bundle state) {
+        viewPager.setCurrentItem(state.getInt(STATE_CURRENT_POSITION), false);
         notifyDataSetChanged();
     }
 
@@ -286,11 +278,11 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
      */
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        LinearLayout layout = (LinearLayout) View.inflate(mContext, R.layout.swipeselector_content_item, null);
+        LinearLayout layout = (LinearLayout) View.inflate(context, R.layout.swipeselector_content_item, null);
         TextView title = (TextView) layout.findViewById(R.id.swipeselector_content_title);
         TextView description = (TextView) layout.findViewById(R.id.swipeselector_content_description);
 
-        SwipeItem slideItem = mItems.get(position);
+        SwipeItem slideItem = items.get(position);
         title.setText(slideItem.getTitle());
 
         if (slideItem.getDescription() == null) {
@@ -302,27 +294,27 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         // We shouldn't get here if the typeface didn't exist.
         // But just in case, because we're paranoid.
-        if (mCustomTypeFace != null) {
-            title.setTypeface(mCustomTypeFace);
-            description.setTypeface(mCustomTypeFace);
+        if (customTypeFace != null) {
+            title.setTypeface(customTypeFace);
+            description.setTypeface(customTypeFace);
         }
 
-        if (mTitleTextAppearance != -1) {
-            setTextAppearanceCompat(title, mTitleTextAppearance);
+        if (titleTextAppearance != -1) {
+            setTextAppearanceCompat(title, titleTextAppearance);
         }
 
-        if (mDescriptionTextAppearance != -1) {
-            setTextAppearanceCompat(description, mDescriptionTextAppearance);
+        if (descriptionTextAppearance != -1) {
+            setTextAppearanceCompat(description, descriptionTextAppearance);
         }
 
-        if (mDescriptionGravity != -1) {
-            description.setGravity(mDescriptionGravity);
+        if (descriptionGravity != -1) {
+            description.setGravity(descriptionGravity);
         }
 
-        layout.setPadding(mContentLeftPadding,
-                mSweetSixteen,
-                mContentRightPadding,
-                mSweetSixteen);
+        layout.setPadding(contentLeftPadding,
+                sixteenDp,
+                contentRightPadding,
+                sixteenDp);
 
         container.addView(layout);
         return layout;
@@ -335,7 +327,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     @Override
     public int getCount() {
-        return mItems != null ? mItems.size() : 0;
+        return items != null ? items.size() : 0;
     }
 
     @Override
@@ -354,10 +346,10 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mLeftButton) && mCurrentPosition >= 1) {
-            mViewPager.setCurrentItem(mCurrentPosition - 1, true);
-        } else if (v.equals(mRightButton) && mCurrentPosition <= getCount() - 1) {
-            mViewPager.setCurrentItem(mCurrentPosition + 1, true);
+        if (v.equals(leftButton) && currentPosition >= 1) {
+            viewPager.setCurrentItem(currentPosition - 1, true);
+        } else if (v.equals(rightButton) && currentPosition <= getCount() - 1) {
+            viewPager.setCurrentItem(currentPosition + 1, true);
         }
     }
 
@@ -375,34 +367,34 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
      * Private convenience methods used by this class.
      */
     private void setActiveIndicator(int position) {
-        if (mIndicatorContainer.findViewWithTag(TAG_CIRCLE) == null) {
+        if (indicatorContainer.findViewWithTag(TAG_CIRCLE) == null) {
             // No indicators yet, let's make some. Only run once per configuration.
             for (int i = 0; i < getCount(); i++) {
-                ImageView indicator = (ImageView) View.inflate(mContext, R.layout.swipeselector_circle_item, null);
+                ImageView indicator = (ImageView) View.inflate(context, R.layout.swipeselector_circle_item, null);
 
                 if (i == position) {
-                    indicator.setImageDrawable(mActiveCircleDrawable);
+                    indicator.setImageDrawable(activeCircleDrawable);
                 } else {
-                    indicator.setImageDrawable(mInActiveCircleDrawable);
+                    indicator.setImageDrawable(inActiveCircleDrawable);
                 }
 
-                indicator.setLayoutParams(mCircleParams);
+                indicator.setLayoutParams(circleParams);
                 indicator.setTag(TAG_CIRCLE);
-                mIndicatorContainer.addView(indicator);
+                indicatorContainer.addView(indicator);
             }
             return;
         }
 
-        ImageView previousActiveIndicator = (ImageView) mIndicatorContainer.getChildAt(mCurrentPosition);
-        ImageView nextActiveIndicator = (ImageView) mIndicatorContainer.getChildAt(position);
+        ImageView previousActiveIndicator = (ImageView) indicatorContainer.getChildAt(currentPosition);
+        ImageView nextActiveIndicator = (ImageView) indicatorContainer.getChildAt(position);
 
-        previousActiveIndicator.setImageDrawable(mInActiveCircleDrawable);
-        nextActiveIndicator.setImageDrawable(mActiveCircleDrawable);
+        previousActiveIndicator.setImageDrawable(inActiveCircleDrawable);
+        nextActiveIndicator.setImageDrawable(activeCircleDrawable);
 
-        mCurrentPosition = position;
+        currentPosition = position;
 
-        if (mOnItemSelectedListener != null) {
-            mOnItemSelectedListener.onItemSelected(getSelectedItem());
+        if (onItemSelectedListener != null) {
+            onItemSelectedListener.onItemSelected(getSelectedItem());
         }
     }
 
@@ -443,25 +435,25 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
     private void handleLeftButtonVisibility(int position) {
         if (position < 1) {
-            mLeftButton.setTag(TAG_HIDDEN);
-            mLeftButton.setClickable(false);
-            animate(0, mLeftButton);
-        } else if (TAG_HIDDEN.equals(mLeftButton.getTag())) {
-            mLeftButton.setTag(null);
-            mLeftButton.setClickable(true);
-            animate(1, mLeftButton);
+            leftButton.setTag(TAG_HIDDEN);
+            leftButton.setClickable(false);
+            animate(0, leftButton);
+        } else if (TAG_HIDDEN.equals(leftButton.getTag())) {
+            leftButton.setTag(null);
+            leftButton.setClickable(true);
+            animate(1, leftButton);
         }
     }
 
     private void handleRightButtonVisibility(int position) {
         if (position == getCount() - 1) {
-            mRightButton.setTag(TAG_HIDDEN);
-            mRightButton.setClickable(false);
-            animate(0, mRightButton);
-        } else if (TAG_HIDDEN.equals(mRightButton.getTag())) {
-            mRightButton.setTag(null);
-            mRightButton.setClickable(true);
-            animate(1, mRightButton);
+            rightButton.setTag(TAG_HIDDEN);
+            rightButton.setClickable(false);
+            animate(0, rightButton);
+        } else if (TAG_HIDDEN.equals(rightButton.getTag())) {
+            rightButton.setTag(null);
+            rightButton.setClickable(true);
+            animate(1, rightButton);
         }
     }
 
