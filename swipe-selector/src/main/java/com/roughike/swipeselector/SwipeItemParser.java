@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SwipeItemParser {
+final class SwipeItemParser {
     private final Context context;
     private final XmlResourceParser parser;
     private final List<SwipeItem> swipeItems;
@@ -35,14 +35,14 @@ public class SwipeItemParser {
     private int currentEventType;
     private SwipeItem currentlyProcessedItem;
 
-    public SwipeItemParser(Context context, @XmlRes int swipeItemsRes) {
+    SwipeItemParser(Context context, @XmlRes int swipeItemsRes) {
         this.context = context;
 
         parser = context.getResources().getXml(swipeItemsRes);
         swipeItems = new ArrayList<>();
     }
 
-    public List<SwipeItem> parseItems() {
+    List<SwipeItem> parseItems() {
         try {
             parser.next();
             currentEventType = parser.getEventType();
@@ -87,9 +87,9 @@ public class SwipeItemParser {
         String attributeName = parser.getAttributeName(position);
 
         switch (attributeName) {
-            case "id":
-                int id = parser.getIdAttributeResourceValue(position);
-                currentlyProcessedItem.setId(id);
+            case "value":
+                String value = getStringValue(position);
+                currentlyProcessedItem.setValue(value);
                 break;
             case "title":
                 String title = getStringValue(position);

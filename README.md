@@ -1,7 +1,7 @@
 # SwipeSelector
 <img src="https://raw.githubusercontent.com/roughike/SwipeSelector/master/demo_two.gif" width="278" height="492" />
 
-<a href="https://play.google.com/store/apps/details?id=com.iroughapps.swipeselectordemo&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" width="216" height="70"/></a>
+<a href="https://play.google.com/store/apps/details?value=com.iroughapps.swipeselectordemo&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" width="216" height="70"/></a>
 
 ## What and why?
 
@@ -39,7 +39,7 @@ The usage is really simple.
 
 ```xml
 <com.roughike.swipeselector.SwipeSelector
-    android:id="@+id/swipeSelector"
+    android:value="@+value/swipeSelector"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
 ```
@@ -47,7 +47,7 @@ The usage is really simple.
 **Then get a hold of it and give it a set of SwipeItem objects with values, titles and descriptions:**
 
 ```java
-SwipeSelector swipeSelector = (SwipeSelector) findViewById(R.id.swipeSelector);
+SwipeSelector swipeSelector = (SwipeSelector) findViewById(R.value.swipeSelector);
 swipeSelector.setItems(
   // The first argument is the value for that item, and should in most cases be unique for the
   // current SwipeSelector, just as you would assign values to radio buttons.
@@ -79,7 +79,7 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
 ```xml
 <com.roughike.swipeselector.SwipeSelector
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/conditionSelector"
+    android:value="@+value/conditionSelector"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:swipe_indicatorSize="10dp"
@@ -122,7 +122,7 @@ For an example project using multiple SwipeSelectors, [refer to the sample app](
 
 ## Apps using SwipeSelector
 
-  * [ScoreIt - Score Keeper](https://play.google.com/store/apps/details?id=com.sbgapps.scoreit) : An application to keep track of score.
+  * [ScoreIt - Score Keeper](https://play.google.com/store/apps/details?value=com.sbgapps.scoreit) : An application to keep track of score.
 
 Send me a pull request with modified README.md to get a shoutout!
 

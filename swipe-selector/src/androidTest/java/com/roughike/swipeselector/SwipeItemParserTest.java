@@ -32,13 +32,12 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 public class SwipeItemParserTest {
-    private Context context;
     private List<SwipeItem> hardCodedItems;
     private List<SwipeItem> resourcedItems;
 
     @Before
     public void setUp() {
-        context = InstrumentationRegistry.getContext();
+        Context context = InstrumentationRegistry.getContext();
         hardCodedItems = new SwipeItemParser(
                 context,
                 com.roughike.swipeselector.test.R.xml.swipe_items_harcoded
@@ -56,14 +55,14 @@ public class SwipeItemParserTest {
     }
 
     @Test
-    public void shouldHaveCorrectIds() {
-        assertThat(hardCodedItems.get(0).getId(), is(com.roughike.swipeselector.test.R.id.item_pizza));
-        assertThat(hardCodedItems.get(1).getId(), is(com.roughike.swipeselector.test.R.id.item_burger));
-        assertThat(hardCodedItems.get(2).getId(), is(com.roughike.swipeselector.test.R.id.item_sushi));
+    public void shouldHaveCorrectValues() {
+        assertThat(hardCodedItems.get(0).getValue(), is("pizza"));
+        assertThat(hardCodedItems.get(1).getValue(), is("burger"));
+        assertThat(hardCodedItems.get(2).getValue(), is("sushi"));
 
-        assertThat(resourcedItems.get(0).getId(), is(com.roughike.swipeselector.test.R.id.item_pizza));
-        assertThat(resourcedItems.get(1).getId(), is(com.roughike.swipeselector.test.R.id.item_burger));
-        assertThat(resourcedItems.get(2).getId(), is(com.roughike.swipeselector.test.R.id.item_sushi));
+        assertThat(resourcedItems.get(0).getValue(), is("pizza"));
+        assertThat(resourcedItems.get(1).getValue(), is("burger"));
+        assertThat(resourcedItems.get(2).getValue(), is("sushi"));
     }
 
     @Test

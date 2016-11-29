@@ -23,6 +23,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -207,13 +208,13 @@ public class SwipeSelector extends FrameLayout {
      * select that item by using something like this:
      *
      * {@code
-     * swipeSelector.selectItemWithId(1);
+     * swipeSelector.selectItemWithValue(1);
      * }
      *
-     * @param id the value of the item to select.
+     * @param value the value of the item to select.
      */
-    public void selectItemWithValue(int id) {
-        selectItemWithValue(id, true);
+    public void selectItemWithValue(String value) {
+        selectItemWithValue(value, true);
     }
 
     /**
@@ -230,14 +231,14 @@ public class SwipeSelector extends FrameLayout {
      * select that item by using something like this:
      *
      * {@code
-     * swipeSelector.selectItemWithId(1, true);
+     * swipeSelector.selectItemWithValue(1, true);
      * }
      *
-     * @param id the id of the item to select.
+     * @param value the id of the item to select.
      * @param animate should the change be animated or not.
      */
-    public void selectItemWithValue(int id, boolean animate) {
-        adapter.selectItemWithId(id, animate);
+    public void selectItemWithValue(@NonNull String value, boolean animate) {
+        adapter.selectItemWithValue(value, animate);
     }
 
     @Override

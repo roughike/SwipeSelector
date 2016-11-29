@@ -17,27 +17,38 @@
 package com.roughike.swipeselector;
 
 public class SwipeItem {
-    private int id;
+    private String value;
     private String title;
     private String description;
 
-    public SwipeItem() {
+    SwipeItem() {
     }
 
-    public SwipeItem(int id, String title, String description) {
-        this.id = id;
+    /**
+     * Constructor for creating a new item for the {@link SwipeSelector}.
+     *
+     * @param value The value for this item, which should generally be unique
+     * for current {@link SwipeSelector}. This is used the same
+     * way one might use radio buttons on webpages with HTML.
+     * @param title A short descriptive title for this item, such as "Pizza".
+     * @param description Longer explanation related to the title, such as
+     * "Pizzas are healthy, because pizza sauces contain tomato. And tomatoes
+     * are healthy, just ask anyone."
+     */
+    public SwipeItem(String value, String title, String description) {
+        this.value = value;
         this.title = title;
         this.description = description;
     }
 
     /**
-     * Set the id for this SwipeItem.
+     * Set the value for this SwipeItem.
      *
-     * @param id The unique id for this item, which is used for identifying which
+     * @param value The unique value for this item, which is used for identifying which
      *           item the user has selected in this SwipeSelector.
      */
-    void setId(int id) {
-        this.id = id;
+    void setValue(String value) {
+        this.value = value;
     }
 
     /**
@@ -61,12 +72,12 @@ public class SwipeItem {
     }
 
     /**
-     * Gets the id for this SwipeItem.
+     * Gets the value for this SwipeItem.
      *
      * @return
      */
-    public int getId() {
-        return id;
+    public String getValue() {
+        return value;
     }
 
     /**

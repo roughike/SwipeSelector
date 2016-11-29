@@ -24,6 +24,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -245,11 +246,11 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         viewPager.setCurrentItem(position, animate);
     }
 
-    void selectItemWithId(@IdRes int id, boolean animate) {
+    void selectItemWithValue(@NonNull String value, boolean animate) {
         boolean itemExists = false;
 
         for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getId() == id) {
+            if (items.get(i).getValue().equals(value)) {
                 viewPager.setCurrentItem(i, animate);
                 itemExists = true;
                 break;
@@ -258,7 +259,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
 
         if (!itemExists) {
             throw new IllegalArgumentException("This SwipeSelector " +
-                    "does not have an item with the given id " + id + ".");
+                    "does not have an item with the given value " + value + ".");
         }
     }
 

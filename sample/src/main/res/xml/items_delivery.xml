@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <swipeitems>
     <item
-        id="@+id/select_delivery_method"
+        value="select"
         title="Select delivery method"
         description="Start by swiping left." />
     <item
-        id="@+id/delivery_none"
+        value="delivery_none"
         title="No delivery"
         description="Come to our lovely restaurant and pick up the pizza yourself." />
     <item
-        id="@+id/delivery_yes"
+        value="delivery_yes"
         title="Delivery"
         description="Our minimum-wage delivery boy will bring you the pizza by his own scooter using his own gas money." />
 </swipeitems>

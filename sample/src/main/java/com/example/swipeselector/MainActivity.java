@@ -31,19 +31,19 @@ public class MainActivity extends AppCompatActivity {
 
                 String toastMessage = "";
 
-                if (selectedSize.getId() != R.id.select_a_size) {
+                if (!selectedSize.getValue().equals("select")) {
                     toastMessage += "Size: " + selectedSize.getTitle();
                 } else {
                     toastMessage += "No size selected.";
                 }
 
-                if (selectedToppings.getId() != R.id.select_a_topping) {
+                if (!selectedToppings.getValue().equals("select")) {
                     toastMessage += "\nToppings: " + selectedToppings.getTitle();
                 } else {
                     toastMessage += "\nNo toppings selected.";
                 }
 
-                if (selectedDelivery.getId() != R.id.select_delivery_method) {
+                if (!selectedDelivery.getValue().equals("select")) {
                     toastMessage += "\nDelivery: " + selectedDelivery.getTitle();
                 } else {
                     toastMessage += "\nNo delivery method selected.";
