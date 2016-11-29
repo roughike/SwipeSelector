@@ -118,104 +118,6 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         setAlpha(0.0f, leftButton);
     }
 
-    static class Builder {
-        private ViewPager viewPager;
-        private ViewGroup indicatorContainer;
-
-        private int indicatorSize;
-        private int indicatorMargin;
-        private int inActiveIndicatorColor;
-        private int activeIndicatorColor;
-
-        private int leftButtonResource;
-        private int rightButtonResource;
-
-        private ImageView leftButton;
-        private ImageView rightButton;
-
-        private String customFontPath;
-        private int titleTextAppearance;
-        private int descriptionTextAppearance;
-        private int descriptionGravity;
-
-        Builder() {
-        }
-
-        Builder viewPager(ViewPager viewPager) {
-            this.viewPager = viewPager;
-            return this;
-        }
-
-        Builder indicatorContainer(ViewGroup indicatorContainer) {
-            this.indicatorContainer = indicatorContainer;
-            return this;
-        }
-
-        Builder indicatorSize(int indicatorSize) {
-            this.indicatorSize = indicatorSize;
-            return this;
-        }
-
-        Builder indicatorMargin(int indicatorMargin) {
-            this.indicatorMargin = indicatorMargin;
-            return this;
-        }
-
-        Builder inActiveIndicatorColor(int inActiveIndicatorColor) {
-            this.inActiveIndicatorColor = inActiveIndicatorColor;
-            return this;
-        }
-
-        Builder activeIndicatorColor(int activeIndicatorColor) {
-            this.activeIndicatorColor = activeIndicatorColor;
-            return this;
-        }
-
-        Builder leftButtonResource(int leftButtonResource) {
-            this.leftButtonResource = leftButtonResource;
-            return this;
-        }
-
-        Builder rightButtonResource(int rightButtonResource) {
-            this.rightButtonResource = rightButtonResource;
-            return this;
-        }
-
-        Builder leftButton(ImageView leftButton) {
-            this.leftButton = leftButton;
-            return this;
-        }
-
-        Builder rightButton(ImageView rightButton) {
-            this.rightButton = rightButton;
-            return this;
-        }
-
-        Builder customFontPath(String customFontPath) {
-            this.customFontPath = customFontPath;
-            return this;
-        }
-
-        Builder titleTextAppearance(int titleTextAppearance) {
-            this.titleTextAppearance = titleTextAppearance;
-            return this;
-        }
-
-        Builder descriptionTextAppearance(int descriptionTextAppearance) {
-            this.descriptionTextAppearance = descriptionTextAppearance;
-            return this;
-        }
-
-        Builder descriptionGravity(int descriptionGravity) {
-            this.descriptionGravity = descriptionGravity;
-            return this;
-        }
-
-        SwipeAdapter build() {
-            return new SwipeAdapter(this);
-        }
-    }
-
     /**
      * Protected methods used by SwipeSelector
      */
@@ -480,6 +382,104 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
             button.setAlpha(alpha);
         } else {
             button.setAlpha((int) (alpha * 255));
+        }
+    }
+
+    static class Builder {
+        private ViewPager viewPager;
+        private ViewGroup indicatorContainer;
+
+        private int indicatorSize;
+        private int indicatorMargin;
+        private int inActiveIndicatorColor;
+        private int activeIndicatorColor;
+
+        private int leftButtonResource;
+        private int rightButtonResource;
+
+        private ImageView leftButton;
+        private ImageView rightButton;
+
+        private String customFontPath;
+        private int titleTextAppearance;
+        private int descriptionTextAppearance;
+        private int descriptionGravity;
+
+        Builder() {
+        }
+
+        Builder viewPager(ViewPager viewPager) {
+            this.viewPager = viewPager;
+            return this;
+        }
+
+        Builder indicatorContainer(ViewGroup indicatorContainer) {
+            this.indicatorContainer = indicatorContainer;
+            return this;
+        }
+
+        Builder indicatorSize(int indicatorSize) {
+            this.indicatorSize = indicatorSize;
+            return this;
+        }
+
+        Builder indicatorMargin(int indicatorMargin) {
+            this.indicatorMargin = indicatorMargin;
+            return this;
+        }
+
+        Builder inActiveIndicatorColor(int inActiveIndicatorColor) {
+            this.inActiveIndicatorColor = inActiveIndicatorColor;
+            return this;
+        }
+
+        Builder activeIndicatorColor(int activeIndicatorColor) {
+            this.activeIndicatorColor = activeIndicatorColor;
+            return this;
+        }
+
+        Builder leftButtonResource(int leftButtonResource) {
+            this.leftButtonResource = leftButtonResource;
+            return this;
+        }
+
+        Builder rightButtonResource(int rightButtonResource) {
+            this.rightButtonResource = rightButtonResource;
+            return this;
+        }
+
+        Builder leftButton(ImageView leftButton) {
+            this.leftButton = leftButton;
+            return this;
+        }
+
+        Builder rightButton(ImageView rightButton) {
+            this.rightButton = rightButton;
+            return this;
+        }
+
+        Builder customFontPath(String customFontPath) {
+            this.customFontPath = customFontPath;
+            return this;
+        }
+
+        Builder titleTextAppearance(int titleTextAppearance) {
+            this.titleTextAppearance = titleTextAppearance;
+            return this;
+        }
+
+        Builder descriptionTextAppearance(int descriptionTextAppearance) {
+            this.descriptionTextAppearance = descriptionTextAppearance;
+            return this;
+        }
+
+        Builder descriptionGravity(int descriptionGravity) {
+            this.descriptionGravity = descriptionGravity;
+            return this;
+        }
+
+        SwipeAdapter build() {
+            return new SwipeAdapter(this);
         }
     }
 }
