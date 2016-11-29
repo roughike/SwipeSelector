@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="pizza_value">pizza</string>
     <string name="pizza_title">Pizza</string>
     <string name="pizza_description">Pizza is love. Pizza is life.</string>
+
+    <string name="burger_value">burger</string>
     <string name="burger_title">Hamburger</string>
     <string name="burger_description">EY WOOD LAKE TO BYE A AMBURGER</string>
+
+    <string name="sushi_value">sushi</string>
     <string name="sushi_title">Sushi</string>
     <string name="sushi_description">Who doesn\'t love raw fish?</string>
 </resources>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <swipeitems>
     <item
-        value="pizza"
+        value="@string/pizza_value"
         title="@string/pizza_title"
         description="@string/pizza_description" />
     <item
-        value="burger"
+        value="@string/burger_value"
         title="@string/burger_title"
         description="@string/burger_description" />
     <item
-        value="sushi"
+        value="@string/sushi_value"
         title="@string/sushi_title"
         description="@string/sushi_description" />
 </swipeitems>

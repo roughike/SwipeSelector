@@ -55,11 +55,14 @@ public class SwipeItemParserTest {
     }
 
     @Test
-    public void shouldHaveCorrectValues() {
+    public void shouldHaveCorrectHardcodedValues() {
         assertThat(hardCodedItems.get(0).getValue(), is("pizza"));
         assertThat(hardCodedItems.get(1).getValue(), is("burger"));
         assertThat(hardCodedItems.get(2).getValue(), is("sushi"));
+    }
 
+    @Test
+    public void shouldHaveCorrectStringResourceValues() {
         assertThat(resourcedItems.get(0).getValue(), is("pizza"));
         assertThat(resourcedItems.get(1).getValue(), is("burger"));
         assertThat(resourcedItems.get(2).getValue(), is("sushi"));
