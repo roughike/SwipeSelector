@@ -174,6 +174,16 @@ public class SwipeSelector extends FrameLayout {
     }
 
     /**
+     * A method for giving this SwipeSelector something to show.
+     *
+     * @param swipeItems an array of {@link SwipeItem} to show
+     * inside this view.
+     */
+    public void setItems(List<SwipeItem> swipeItems) {
+        adapter.setItems(swipeItems);
+    }
+
+    /**
      * Determine whether this SwipeSelector has a selected item, or if the currently visible
      * item is just a unselected state item.
      *
