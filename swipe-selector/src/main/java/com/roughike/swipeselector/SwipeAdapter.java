@@ -144,6 +144,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
                     "not have an item at position " + position + ".");
         }
 
+        currentPosition = position; // AUTHOR FORGOT TO UPDATE THE CURRENT POSITION
         viewPager.setCurrentItem(position, animate);
     }
 
@@ -153,6 +154,7 @@ class SwipeAdapter extends PagerAdapter implements View.OnClickListener, ViewPag
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getValue().equals(value)) {
                 viewPager.setCurrentItem(i, animate);
+                currentPosition = position; // AUTHOR FORGOT TO UPDATE THE CURRENT POSITION
                 itemExists = true;
                 break;
             }
